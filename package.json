@@ -1,0 +1,18 @@
+{
+  "name": "portfolio-eduardo",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "nova-noticia": "node scripts/nova-noticia.mjs",
+    "foto-noticia": "node scripts/foto-noticia.mjs"
+  },
+  "dependencies": {
+    "astro": "^7.4.10",
+    "gsap": "^3.15.1",
+    "lenis": "^1.3.27"
+  }
+}

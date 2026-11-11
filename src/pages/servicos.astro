@@ -1,0 +1,288 @@
+---
+import Base from '../layouts/Base.astro';
+import Pic from '../components/Pic.astro';
+
+const zap = 'https://wa.me/5519995362767?text=' + encodeURIComponent('Olá, Eduardo! Vi seu site e quero uma landing page.');
+
+const itens = [
+  { ico: 'notebook', w: 353, h: 360, t: 'Design sob medida', p: 'Layout pensado para o seu negócio e para o seu público. Nada de template pronto com o seu logo por cima.' },
+  { ico: 'lupa', w: 297, h: 360, t: 'SEO técnico desde o início', p: 'Título, descrição, dados estruturados, sitemap e robots.txt já saem prontos, no código.' },
+  { ico: 'foguete', w: 290, h: 360, t: 'Velocidade de verdade', p: 'Páginas estáticas, imagens otimizadas e pouco JavaScript. Abre rápido até em computador simples.' },
+  { ico: 'celular', w: 263, h: 360, t: 'Feita para o celular', p: 'Desenhada primeiro para a tela pequena, que é onde a maioria das pessoas vai chegar.' },
+  { ico: 'megafone', w: 327, h: 360, t: 'No ar e no Google', p: 'Eu publico, confiro tudo no ar, envio o sitemap ao Search Console e peço a indexação.' },
+];
+
+const passos = [
+  { t: 'Conversa', p: 'Você me conta o negócio, o público e o que a página precisa fazer.' },
+  { t: 'Proposta', p: 'Eu mostro a direção e o que será entregue, antes de construir qualquer coisa.' },
+  { t: 'Construção', p: 'Construo a página em etapas. Você acompanha e aprova cada uma.' },
+  { t: 'Entrega', p: 'Publico, verifico no ar e envio ao Google. Você recebe tudo funcionando.' },
+];
+
+const faq = [
+  { q: 'Você atende fora de Limeira?', a: 'Sim. O trabalho é 100% online, então atendo de qualquer lugar do Brasil ou do exterior.' },
+  { q: 'Minha página vai aparecer em primeiro no Google?', a: 'Não prometo posição. O que eu garanto é a base técnica correta (título, descrição, dados estruturados, sitemap e velocidade). O resto depende da concorrência, do conteúdo e do tempo.' },
+  { q: 'Preciso ter textos e fotos prontos?', a: 'Ajuda bastante, mas não é obrigatório. Na conversa eu te digo o que preciso para começar e te oriento no que faltar.' },
+  { q: 'O que acontece depois que a página vai ao ar?', a: 'Eu envio o sitemap ao Search Console, inspeciono a URL e peço a indexação. Depois disso, combinamos juntos como acompanhar os resultados.' },
+  { q: 'Dá para pedir outras coisas além de landing page?', a: 'Dá. Landing pages são o meu foco hoje, mas esta área está aberta a novos serviços. Conte o que você precisa.' },
+];
+---
+<Base
+  title="Landing pages que vendem, com SEO integrado | Eduardo Rivabem"
+  description="Landing pages rápidas, com SEO desde o primeiro código e preço justo. Atendimento 100% online, para qualquer lugar. Peça seu orçamento pelo WhatsApp."
+  preload={{ name: 'obj-servicos', sizes: '(max-width:820px) 55vw, 340px' }}
+>
+  <!-- ABERTURA -->
+  <section class="sv-hero">
+    <div class="sv-hero__in wrap">
+      <div class="sv-hero__txt">
+        <p class="eyebrow">Serviços</p>
+        <h1 class="sv-h1"><span>Landing</span> <span>pages</span> <em>que vendem</em></h1>
+        <p class="sv-lead">Páginas rápidas, com SEO desde o primeiro código e preço justo. Atendo de qualquer lugar, 100% online.</p>
+        <p class="sv-cta">
+          <a class="btn btn--big" href={zap} target="_blank" rel="noopener">Pedir orçamento pelo WhatsApp</a>
+          <a class="btn btn--light btn--big" href="#raio-x">Ver por dentro desta página</a>
+        </p>
+      </div>
+      <div class="sv-hero__art" aria-hidden="true">
+        <Pic class="sv-rocket" name="obj-servicos" sizes="(max-width:820px) 55vw, 340px" fetchpriority="high" />
+        <Pic class="sv-spark sv-spark--a" name="ico-estrela" sizes="90px" />
+        <Pic class="sv-spark sv-spark--b" name="ico-carinha" sizes="90px" />
+      </div>
+    </div>
+  </section>
+
+  <!-- O QUE VEM -->
+  <section class="frame frame--inv sv-sec">
+    <div class="wrap">
+      <h2 class="t2">O que vem em toda<em>landing page</em></h2>
+      <ul class="sv-cards">
+        {itens.map((it, i) => (
+          <li class={`sv-card sv-card--${i % 3}`}>
+            <Pic name={`ico-${it.ico}`} sizes="100px" loading="lazy" />
+            <h3>{it.t}</h3>
+            <p>{it.p}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- COMO FUNCIONA -->
+  <section class="frame sv-sec">
+    <div class="wrap">
+      <h2 class="t2">Como funciona<em>em quatro passos</em></h2>
+      <ol class="sv-steps">
+        {passos.map((s, i) => (
+          <li class="sv-step">
+            <span class="sv-step__n" aria-hidden="true">{i + 1}</span>
+            <h3>{s.t}</h3>
+            <p>{s.p}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- RAIO-X -->
+  <section class="frame frame--inv sv-sec" id="raio-x">
+    <div class="wrap">
+      <h2 class="t2">Raio-X desta página<em>sem truque nenhum</em></h2>
+      <p class="sv-xr-lead">Esta página é o meu próprio trabalho. Aperte o botão e veja o que tem por dentro. Tudo é lido agora, no seu navegador, direto da página que você está vendo.</p>
+
+      <div class="xr">
+        <div class="xr__front">
+          <p class="xr__tag">Vitrine</p>
+          <p class="xr__big">Landing pages <em>que vendem</em></p>
+          <p class="xr__small">SEO no código desde o primeiro dia.</p>
+        </div>
+        <div class="xr__panel" id="xrPanel" role="region" aria-label="O que está por dentro desta página" aria-hidden="true">
+          <pre class="xr__code" id="xrCode">Medindo…</pre>
+        </div>
+      </div>
+
+      <p class="sv-xr-ctrl">
+        <button class="btn" id="xrBtn" type="button" aria-expanded="false" aria-controls="xrPanel">Ver por dentro</button>
+        <span class="sv-note" id="xrNote">Nada é escrito à mão: os números vêm da medição do seu navegador.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- PERGUNTAS -->
+  <section class="frame sv-sec">
+    <div class="wrap">
+      <h2 class="t2">Perguntas<em>que sempre aparecem</em></h2>
+      <div class="sv-faq">
+        {faq.map((f) => (
+          <details>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FECHO -->
+  <section class="frame frame--inv sv-sec sv-end">
+    <div class="wrap">
+      <h2 class="t2">Vamos conversar<em>sobre a sua página?</em></h2>
+      <p class="sv-lead sv-lead--dark">Me conte o que você faz e o que a página precisa conseguir. Eu respondo pelo WhatsApp.</p>
+      <p class="sv-cta">
+        <a class="btn btn--big" href={zap} target="_blank" rel="noopener">Pedir orçamento pelo WhatsApp</a>
+        <a class="btn btn--ink btn--big" href="mailto:edurivaserrano@gmail.com">Ou escrever por e-mail</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+  .eyebrow{font:600 13px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin:0 0 var(--s-3)}
+  .btn--big{padding:15px 24px;font-size:16px}
+  .btn--ink{background:var(--ink);color:var(--white)}
+  .sv-lead{max-width:48ch;font-size:var(--t-22);line-height:1.35}
+  .sv-lead--dark{color:var(--ink)}
+  .sv-cta{display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:var(--s-4)}
+  .sv-sec{padding-block:var(--s-6)}
+  .sv-sec .t2{margin-bottom:var(--s-5)}
+  .sv-note{font-size:14px;opacity:.75}
+
+  /* abertura */
+  .sv-hero{background:var(--cobalt);padding-top:96px;padding-bottom:var(--s-6);overflow:clip}
+  .sv-hero__in{display:grid;grid-template-columns:1.3fr .8fr;gap:var(--s-5);align-items:center}
+  .sv-h1{font:900 clamp(3rem,9.5vw,8.5rem)/.84 var(--font-display);font-stretch:68%;text-transform:uppercase;letter-spacing:-.01em;margin:0 0 var(--s-4);text-wrap:balance}
+  .sv-h1 span{display:block}
+  .sv-h1 span,.sv-h1 em{white-space:nowrap}
+  .sv-h1 em{display:block;font-style:italic;font-stretch:62%;color:var(--lime)}
+  .sv-hero__art{position:relative;justify-self:center;width:min(340px,70%)}
+  .sv-rocket{width:100%;height:auto;rotate:10deg;animation:rocket-in 1.6s var(--ease-spring) .2s backwards,bob 4.2s ease-in-out 1.8s infinite alternate;will-change:transform}
+  .sv-spark{position:absolute;height:auto;animation:rocket-in 1.6s var(--ease-spring) backwards}
+  .sv-spark--a{width:26%;left:-14%;top:6%;animation-delay:.5s}
+  .sv-spark--b{width:24%;right:-10%;bottom:12%;animation-delay:.7s}
+  @keyframes rocket-in{from{transform:translateY(40px) scale(.3) rotate(-60deg);opacity:0}}
+  @keyframes bob{to{transform:translateY(-8px)}}
+
+  /* cartões */
+  .sv-cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,190px),1fr));gap:var(--s-4)}
+  .sv-card{display:grid;gap:var(--s-2);align-content:start;padding:var(--s-4);border:2px solid var(--ink);border-radius:var(--r-md);box-shadow:var(--shadow-card);color:var(--ink);transition:transform .3s var(--ease-pop),box-shadow .3s var(--ease-pop)}
+  .sv-card:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+  .sv-card--0{background:var(--lime)}.sv-card--1{background:var(--white)}.sv-card--2{background:var(--mist)}
+  .sv-card img{height:84px;width:auto;max-width:100%;object-fit:contain;object-position:left center}
+  .sv-card h3{font:900 italic 1.7rem/.9 var(--font-display);font-stretch:62%;text-transform:uppercase;margin-top:var(--s-2)}
+  .sv-card p{font-size:15px;line-height:1.45;margin:0}
+
+  /* passos */
+  .sv-steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:var(--s-4)}
+  .sv-step{position:relative;padding:var(--s-4) var(--s-3) var(--s-3);border-top:3px solid var(--white)}
+  .sv-step__n{display:block;font:900 5.5rem/.8 var(--font-display);font-stretch:62%;color:var(--lime);margin-bottom:var(--s-3)}
+  .sv-step h3{font:600 var(--t-22)/1.1 var(--font-body);letter-spacing:-.02em;margin-bottom:var(--s-2)}
+  .sv-step p{margin:0;opacity:.92}
+
+  /* raio-x */
+  .sv-xr-lead{max-width:60ch;margin:0 0 var(--s-4)}
+  .xr{position:relative;border:2px solid var(--ink);border-radius:var(--r-lg);box-shadow:var(--shadow-card);overflow:hidden;background:var(--cobalt);color:var(--white);min-height:360px}
+  .xr__front{padding:clamp(24px,5vw,56px)}
+  .xr__tag{display:inline-block;background:var(--lime);color:var(--ink);border:2px solid var(--ink);border-radius:var(--r-pill);padding:6px 12px;font:700 12px/1 var(--font-body);margin:0 0 var(--s-3)}
+  .xr__big{font:900 clamp(2.2rem,7vw,5rem)/.9 var(--font-display);font-stretch:68%;text-transform:uppercase;margin:0 0 var(--s-3)}
+  .xr__big em{display:block;font-style:italic;color:var(--lime)}
+  .xr__small{margin:0;opacity:.9}
+  .xr__panel{position:absolute;inset:0;background:var(--ink);color:var(--lime);transform:translateX(102%);transition:transform .5s var(--ease-dramatic);overflow:auto;visibility:hidden}
+  .xr__panel.is-open{transform:none;visibility:visible}
+  .xr__code{margin:0;padding:clamp(16px,3vw,32px);font:500 13px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap;word-break:break-word;color:var(--lime)}
+  .sv-xr-ctrl{display:flex;flex-wrap:wrap;gap:var(--s-3);align-items:center;margin-top:var(--s-4)}
+
+  /* perguntas */
+  .sv-faq{display:grid;gap:var(--s-2);max-width:860px}
+  .sv-faq details{border:2px solid var(--white);border-radius:var(--r-md);padding:0 var(--s-4);background:var(--cobalt-deep)}
+  .sv-faq summary{cursor:pointer;padding:var(--s-3) 0;font:600 var(--t-22)/1.2 var(--font-body);letter-spacing:-.02em;list-style:none;display:flex;justify-content:space-between;gap:var(--s-3);align-items:center}
+  .sv-faq summary::-webkit-details-marker{display:none}
+  .sv-faq summary::after{content:"+";font:900 2rem/1 var(--font-display);color:var(--lime);transition:transform .3s var(--ease-pop)}
+  .sv-faq details[open] summary::after{transform:rotate(45deg)}
+  .sv-faq details p{margin:0;padding-bottom:var(--s-3);max-width:62ch;opacity:.92}
+
+  .sv-end{text-align:center}
+  .sv-end .t2{text-align:center}
+  .sv-end .sv-lead{margin-inline:auto}
+  .sv-end .sv-cta{justify-content:center}
+
+  @media (max-width:820px){
+    .sv-hero__in{grid-template-columns:1fr}
+    .sv-hero__art{width:min(220px,55%);order:-1}
+    .sv-hero{padding-top:88px}
+    .sv-sec{padding-block:var(--s-5)}
+  }
+  @media (prefers-reduced-motion:reduce){.sv-rocket{animation:none}.xr__panel{transition:none}}
+</style>
+
+<script>
+  import { initSmooth } from '../scripts/smooth';
+
+  initSmooth();
+
+  // ---------- Raio-X: tudo lido da própria página, agora ----------
+  const btn = document.getElementById('xrBtn') as HTMLButtonElement;
+  const panel = document.getElementById('xrPanel') as HTMLElement;
+  const code = document.getElementById('xrCode') as HTMLElement;
+
+  let lcp = 0, cls = 0;
+  try {
+    new PerformanceObserver((l) => { for (const e of l.getEntries()) lcp = e.startTime; }).observe({ type: 'largest-contentful-paint', buffered: true });
+    new PerformanceObserver((l) => { for (const e of l.getEntries() as any[]) if (!e.hadRecentInput) cls += e.value; }).observe({ type: 'layout-shift', buffered: true });
+  } catch { /* navegador sem suporte: o campo mostra "indisponível" */ }
+
+  const kb = (n: number) => (n / 1024).toFixed(1).replace('.', ',') + ' KB';
+  const trunc = (s: string, n = 80) => (s.length > n ? s.slice(0, n - 1) + '…' : s);
+
+  function build(): string {
+    const nav = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
+    const res = performance.getEntriesByType('resource') as PerformanceResourceTiming[];
+    const size = (r: { transferSize: number; encodedBodySize: number }) => r.transferSize || r.encodedBodySize || 0;
+    const sum = (f: (r: PerformanceResourceTiming) => boolean) => res.filter(f).reduce((a, r) => a + size(r), 0);
+    const total = res.reduce((a, r) => a + size(r), 0) + (nav ? size(nav) : 0);
+    const js = sum((r) => r.initiatorType === 'script' || /\.js(\?|$)/.test(r.name));
+    const img = sum((r) => r.initiatorType === 'img' || /\.(webp|png|jpe?g|avif|svg)(\?|$)/.test(r.name));
+    const font = sum((r) => /\.woff2?(\?|$)/.test(r.name));
+    const title = document.title;
+    const desc = document.querySelector('meta[name="description"]')?.getAttribute('content') ?? '';
+    const canon = document.querySelector('link[rel="canonical"]')?.getAttribute('href');
+    const ld = document.querySelectorAll('script[type="application/ld+json"]').length;
+    const imgs = [...document.images];
+    const semAlt = imgs.filter((i) => !i.hasAttribute('alt')).length;
+    const deco = imgs.filter((i) => i.getAttribute('alt') === '').length;
+    const h2 = document.querySelectorAll('h2').length;
+    const h1 = document.querySelector('h1')?.textContent?.trim().replace(/\s+/g, ' ') ?? '(sem h1)';
+    const dev = /^(localhost|127\.|\[::1\])/.test(location.hostname);
+    const ok = (b: boolean) => (b ? 'ok' : 'atenção');
+
+    return [
+      `<title> ${trunc(title, 70)}`,
+      `  ${title.length} caracteres · ${ok(title.length >= 30 && title.length <= 65)}`,
+      `<meta description> ${trunc(desc, 70)}`,
+      `  ${desc.length} caracteres · ${ok(desc.length >= 110 && desc.length <= 160)}`,
+      `<h1> ${h1}`,
+      `  h2 na página: ${h2}`,
+      `canonical: ${canon ?? 'ainda não (entra quando o domínio existir)'}`,
+      `dados estruturados (JSON-LD): ${ld ? ld + ' bloco(s)' : 'ainda não (entram junto com o domínio)'}`,
+      `imagens: ${imgs.length} · sem alt: ${semAlt} · decorativas (alt vazio): ${deco}`,
+      ``,
+      `peso transferido: ${kb(total)}`,
+      `  JavaScript: ${kb(js)} · imagens: ${kb(img)} · fontes: ${kb(font)}`,
+      `requisições: ${res.length + 1}`,
+      `maior elemento visível (LCP): ${lcp ? Math.round(lcp) + ' ms' : 'indisponível'}`,
+      `deslocamento de layout (CLS): ${cls.toFixed(3)}`,
+      `página carregada em: ${nav && nav.loadEventEnd ? Math.round(nav.loadEventEnd) + ' ms' : 'medindo…'}`,
+      ``,
+      dev ? 'Obs.: medido em localhost, sem CDN e sem cache. No site publicado esses números mudam.' : 'Medido neste navegador, agora.',
+    ].join('\n');
+  }
+
+  let open = false;
+  btn.addEventListener('click', () => {
+    open = !open;
+    if (open) code.textContent = build();
+    panel.classList.toggle('is-open', open);
+    panel.setAttribute('aria-hidden', String(!open));
+    btn.setAttribute('aria-expanded', String(open));
+    btn.textContent = open ? 'Voltar para a vitrine' : 'Ver por dentro';
+  });
+</script>

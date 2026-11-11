@@ -1,0 +1,165 @@
+{
+  "meta": {
+    "name": "Eduardo Rivabem — site-hub",
+    "version": "1.0",
+    "date": "2026-11-10",
+    "sources": [
+      { "file": "referencias/trevornoah.jpg", "takeaway": "Hero = retrato-adesivo com cabeça rasgada e objetos 3D saindo; cada objeto é uma porta de área. Fotos em todo o site como adesivos com canto descolando. Seções com título em 2 linhas (branco + cor). Lista de notícias em linhas data | título | resumo." },
+      { "file": "referencias/things-inc.jpg", "takeaway": "Nome em tipografia 3D inflada (puffy), brilhante, com sombra suave; clima lúdico; cards com borda grossa e cantos bem arredondados." },
+      { "file": "referencias/slush.jpg", "takeaway": "Retrô animado: display condensado pesado, às vezes itálico; ícones-adesivo com contorno preto e sombra sólida deslocada; faixas/marquees de palavra repetida; blocos coloridos com borda preta; molduras de seção com cantos arredondados sobre fundo escuro." }
+    ],
+    "note": "Paleta definida pelo cliente prevalece sobre as paletas medidas das referências. Medições guardadas só como documentação."
+  },
+
+  "reverse_engineering": {
+    "date": "2026-11-10",
+    "trevornoah.com": {
+      "stack": "Webflow + bundle próprio (Vercel) com GSAP + Three.js r183 + Lenis (lerp 0.1)",
+      "hero": "Cena WebGL inteira: cabeça é um modelo .glb (TREVOR_head) com textura da foto e variações de expressão (olhos, olhar, rosto surpreso, em .ktx2). Objetos (mic, livro, player, cérebro, coração, nuvem) são .glb com materiais matcap. Borda rasgada/curvatura usa textura de dados .exr ('bend'). Só desktop; mobile cai para imagens.",
+      "hover_portal": "Objeto sobe e inclina levemente; etiqueta em pílula branca ('Shows', 'Watch & Listen') aparece e segue o cursor. Itens de menu: transform 0.3–0.45s cubic-bezier(0.4, 1.65, 0.3, 1) (overshoot forte).",
+      "other": "Transições 'paper-tear' (papel rasgando) em WebGL entre seções; cards de foto com 'peel' em SVG (path de curl + sombra com blur); ícones SVG com elastic.out(2, 0.45) e stagger 0.06s no hover.",
+      "fonts": "Die Grotesk C / D (comercial)"
+    },
+    "slush.app": {
+      "stack": "Webflow + GSAP 3.12.7 + ScrollTrigger (61 gatilhos) + Lenis + CustomEase + Lottie (ícones)",
+      "hero": "Letras do logo sobem de yPercent -100 em 1.85s com stagger 0.15s; ícones-adesivo entram de scale 0.2 + rotate -90° em 1.6s, começando em 0.5s. A 'mangueira' azul 3D é vídeo em loop (HEVC com alfa para Safari / WebM).",
+      "eases": {
+        "slush": "cubic-bezier(0.65, 0.05, 0, 1) — entrada dramática, lenta no início",
+        "slush-bounce": "mola com pico 1.14 em ~25% e assentamento até 100% (também usado em CSS como linear() de 500ms nos botões)"
+      },
+      "scroll": "Títulos e ícones animam ao entrar (start 'top 80%' / 'top bottom+=50%'), sem scrub nem pin; sliders em loop linear.",
+      "fonts": "Lateral 800 (display condensado) + Aeonik Pro 500/700 (comerciais)"
+    },
+    "decision_for_eduardo": "Não replicar o WebGL completo do Trevor (exige modelagem 3D .glb). Versão 2.5D: camadas PNG/WebP com alfa geradas no Gemini (cabeça recortada com rasgo + objetos 3D), animadas com GSAP; hover com sobe+inclina, overshoot cubic-bezier(0.4,1.65,0.3,1) e etiqueta em pílula seguindo o cursor; leve parallax de profundidade no mousemove. Peel das fotos em SVG/CSS. Entradas no estilo Slush (letras por yPercent com stagger, adesivos com scale+rotate em mola). Lenis lerp 0.1 para rolagem suave. Caminho de upgrade futuro: Three.js com planos texturizados."
+  },
+
+  "design_system": {
+    "color": {
+      "primary":   { "hex": "#0131CD", "role": "Fundo dominante do site (azul cobalto)", "usage": "Plano de fundo padrão; em seções invertidas vira cor de texto e borda." },
+      "secondary": { "hex": "#FFFFFF", "role": "Tipografia e superfícies invertidas", "usage": "Texto sobre azul; fundo das seções invertidas (Acadêmico, Notícias)." },
+      "accent":    { "hex": "#B9FC01", "role": "Destaque fora do padrão (verde neon limão)", "usage": "Palavra-chave nos títulos de 2 linhas, CTA principal, estado de hover, ícone ativo. Máx. ~5% da tela. Nunca texto longo; nunca verde sobre branco (contraste baixo)." },
+      "neutral": {
+        "scale": ["#FFFFFF", "#E9EEFF", "#9DB0F0", "#0131CD", "#011E80", "#00104A", "#060814"],
+        "usage": "Branco = texto sobre azul. #E9EEFF = fundo invertido suave. #011E80/#00104A = seções profundas (rodapé, faixa de marquee). #060814 = contorno e sombra sólida dos ícones-adesivo (papel do preto no Slush)."
+      },
+      "surface": { "background": "#0131CD", "card": "#011E80", "inverted": "#FFFFFF", "overlay": "rgba(0,16,74,0.72)" },
+      "semantic": { "success": "#B9FC01", "error": "#FF4D3D", "warning": "#FFD43B", "info": "#9DB0F0" },
+      "contrast_pairs": [
+        { "fg": "#FFFFFF", "bg": "#0131CD", "ratio": "9.0:1", "status": "AA/AAA" },
+        { "fg": "#B9FC01", "bg": "#0131CD", "ratio": "7.3:1", "status": "AA" },
+        { "fg": "#0131CD", "bg": "#FFFFFF", "ratio": "9.0:1", "status": "AA/AAA" },
+        { "fg": "#060814", "bg": "#B9FC01", "ratio": "16.1:1", "status": "texto de botão verde" }
+      ],
+      "measured_palette": {
+        "trevornoah": [["#1d2440","background",0.533],["#2b2a2a","unassigned",0.345],["#c08f7a","accent",0.032],["#dcb3b8","unassigned",0.031],["#f6f7f2","text",0.031]],
+        "things-inc": [["#bbd6fc","background",0.561],["#6fbafc","unassigned",0.216],["#155081","unassigned",0.072],["#9d3b42","unassigned",0.046],["#1056f7","accent",0.019]],
+        "slush":      [["#f6f7fd","background",0.546],["#030305","text",0.224],["#fbd63f","unassigned",0.065],["#5185e6","unassigned",0.057],["#6ad1a2","unassigned",0.045],["#f54b09","accent",0.017]]
+      },
+      "measurement": { "tool": "design-dna/scripts/measure-colors.mjs", "input": "versões reduzidas a 1000px de largura", "coverage_unit": "fração 0–1" }
+    },
+
+    "typography": {
+      "display": {
+        "family": "Archivo (variável: largura 62–125, peso 100–900, itálico)",
+        "fallback": "'Arial Narrow', sans-serif",
+        "usage": "Títulos de seção e marquees: largura ~62–75 (condensada), peso 800–900, caixa alta, itálico em momentos de energia. Faz o papel do display condensado do Slush sem cair em Anton/Bebas.",
+        "tracking": "-0.01em", "line_height": 0.88
+      },
+      "body": {
+        "family": "Instrument Sans",
+        "fallback": "system-ui, sans-serif",
+        "usage": "Texto corrido, navegação, botões, títulos de 2 linhas estilo Trevor Noah (peso 600, tracking -0.03em).",
+        "line_height": 1.5
+      },
+      "hero_name": {
+        "family": "Letreiro 3D inflado (não é fonte web)",
+        "usage": "'Eduardo Rivabem' em letras infladas tipo Things, branco perolado com reflexo azul e sombra suave. Entregue como asset 3D (Spline/Blender → WebP/AVIF + fallback texto real em <h1>).",
+        "note": "O <h1> real fica no HTML para SEO; o 3D é camada visual com aria-hidden."
+      },
+      "scale": { "ratio": 1.333, "base_px": 17, "steps_px": [13, 17, 22, 30, 40, 53, 71, 95, 128, 170] },
+      "max_fonts": 2
+    },
+
+    "spacing": { "base_unit_px": 8, "scale_px": [4, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192], "density": "arejado no hero e nas seções de título; compacto dentro de cards e listas", "section_gap_px": "128–192 desktop, 80–96 mobile", "mobile_gutter_px": 16 },
+
+    "layout": {
+      "grid": "12 colunas, max-width 1280px, gutter 24px",
+      "hero": "Centrado e simétrico (retrato-portal ocupa ~70vh); o resto do site quebra a simetria",
+      "section_frames": "Seções como 'cartões' gigantes com cantos 32px sobre um fundo mais escuro (#00104A), herança do Slush",
+      "asymmetry": "Galerias com fotos-adesivo rotacionadas (-6° a 6°) e sobrepostas, estilo Trevor 'Media'",
+      "breakpoints_px": [480, 768, 1024, 1280]
+    },
+
+    "shape": {
+      "radius_px": { "sm": 8, "md": 16, "lg": 24, "xl": 32, "pill": 999 },
+      "borders": "Contorno 2–3px #060814 em ícones-adesivo e cards coloridos (Slush); contorno branco 10–14px nas fotos recortadas (sticker)",
+      "dividers": "Linhas finas 1px rgba(255,255,255,0.18) na lista de Notícias (Trevor)"
+    },
+
+    "elevation": {
+      "style": "Sombra sólida deslocada (retrô) em vez de sombra difusa",
+      "tokens": { "sticker": "0 6px 0 #060814", "card": "6px 6px 0 #060814", "float": "0 24px 48px rgba(0,16,74,0.45)" },
+      "note": "Sombra difusa só nos objetos 3D e no letreiro inflado."
+    },
+
+    "iconography": {
+      "style": "Ilustrações-adesivo retrô em leve isometria, contorno escuro grosso, sombra sólida, 2–3 cores da paleta + branco (Slush)",
+      "set_needed": ["foguete", "carinha sorrindo", "laptop com landing page", "play/celular", "capelo/medalha", "jornal/megafone", "cursor", "lâmpada/IA"],
+      "note": "Desenhar sob medida em SVG; não usar pacote de ícones genérico."
+    },
+
+    "motion": {
+      "easing": { "pop": "cubic-bezier(0.4, 1.65, 0.3, 1)", "spring": "CustomEase mola (pico ~1.14 em 25%), estilo slush-bounce", "dramatic": "cubic-bezier(0.65, 0.05, 0, 1)", "smooth": "cubic-bezier(0.22, 1, 0.36, 1)" },
+      "durations_ms": { "micro": 160, "hover": 300, "button": 500, "enter": 1200, "hero_letters": 1850, "hero_stagger": 150 },
+      "smooth_scroll": "Lenis lerp 0.1 (desligado em reduced-motion)",
+      "character": "Saltitante e elástico (pop), nunca flutuante e lento",
+      "reduced_motion": "Desliga marquees, flutuação e parallax; mantém só opacidade"
+    },
+
+    "components": {
+      "button_primary": "Pílula verde #B9FC01, texto #060814 peso 600, sombra sólida 0 4px 0 #060814; hover sobe 2px",
+      "button_secondary": "Pílula branca com texto azul (Trevor 'Get Tickets')",
+      "nav": "Botão Menu em pílula fixo + atalhos por ícone das 5 áreas",
+      "section_title": "2 linhas: linha 1 branca, linha 2 verde (ex.: 'Vídeos' / 'Na Tela')",
+      "photo_sticker": "Foto com contorno branco grosso, canto inferior direito 'descolando'",
+      "news_row": "Data (verde) | título (branco) | resumo — linhas separadas por divisória fina",
+      "marquee_band": "Faixa de palavra repetida em blocos coloridos com contorno, ícones-adesivo por cima",
+      "service_card": "Card colorido com contorno, título display condensado, ícone-adesivo no canto, botão preto pílula"
+    }
+  },
+
+  "design_style": {
+    "aesthetic": { "primary": "Retrô-pop lúdico com acabamento premium", "archetype": "Portfólio pessoal editorial + landing de produto", "keywords": ["adesivo", "colagem", "3D inflado", "retrô animado", "confiante", "jovem"], "era_reference": "Embalagens e figurinhas anos 90–00 lidas com tipografia contemporânea" },
+    "visual_language": { "ornamentation": "Médio-alto, concentrado em ícones-adesivo e no hero; texto corrido limpo", "texture": "Leve grão nos objetos 3D; superfícies chapadas no resto", "contrast": "Alto (azul saturado x branco x verde neon)", "personality": "Curioso, técnico, bem-humorado, confiável" },
+    "composition": { "strategy": "Um elemento-herói por seção, cercado por adesivos satélites", "whitespace": "Generoso ao redor dos heróis; denso nas listas", "hierarchy": "Display condensado gigante > título de 2 linhas > corpo", "rhythm": "Alternar seções azuis, invertidas (brancas) e faixas de marquee escuras" },
+    "imagery": { "photo": "Fotos reais do Eduardo recortadas como adesivo (contorno branco, cabeça rasgada no hero)", "illustration": "Ícones-adesivo SVG próprios", "3d": "Objetos 3D brilhantes saindo da cabeça (portal) e letreiro inflado", "forbidden": "Stock genérico, mockups de celular vazios, gradiente roxo" },
+    "interaction_feel": { "hover": "Objeto salta, gira levemente e ganha legenda", "click": "Transição de portal: objeto cresce e leva à área", "scroll": "Adesivos entram com pop e rotação; marquees deslizam", "feedback": "Imediato e elástico" },
+    "brand_voice_in_ui": { "tone": "Direto, próximo, com humor leve; português do Brasil", "cta_examples": ["Quero minha landing page", "Ver meus vídeos", "Baixar currículo"], "avoid": "Jargão vazio ('soluções inovadoras'), 'Olá, eu sou…' genérico" }
+  },
+
+  "visual_effects": {
+    "overview": { "effect_intensity": "alta no hero, média no resto", "performance_tier": "médio: GSAP + SVG + imagens pré-renderizadas; WebGL só se o letreiro 3D for interativo", "signature_effect": "Retrato-portal: cabeça rasgada com objetos 3D que reagem ao mouse e levam às áreas" },
+    "background_effects": { "enabled": true, "type": "Azul chapado com objeto 3D gigante desfocado ao fundo (como a 'mangueira' do Slush), opcional; grão sutil", "implementation": "Imagem AVIF/WebP pré-renderizada + CSS" },
+    "particle_systems": { "enabled": false },
+    "3d_elements": {
+      "enabled": true,
+      "items": [
+        { "what": "Letreiro inflado 'Eduardo Rivabem'", "approach": "Pré-renderizado (Spline/Blender) em AVIF/WebP; opcional leve tilt com o mouse via CSS 3D" },
+        { "what": "Objetos do portal (1 por área)", "approach": "Renders 3D em PNG/WebP com alfa, animados com GSAP (bob, hover pop, rotação)" }
+      ]
+    },
+    "shader_effects": { "enabled": false },
+    "scroll_effects": {
+      "parallax": { "enabled": true, "notes": "Objetos do portal se afastam em profundidade ao rolar para fora do hero" },
+      "scroll_triggered_animations": { "enabled": true, "notes": "Fotos-adesivo e ícones entram com pop + rotação; títulos de 2 linhas sobem linha a linha" },
+      "scroll_morphing": { "enabled": false }
+    },
+    "text_effects": { "enabled": true, "notes": "Marquees infinitos de palavra em blocos coloridos; palavra verde no título com leve sublinhado animado" },
+    "cursor_effects": { "enabled": true, "notes": "No hero, objetos acompanham o cursor com atraso (magnetismo leve); fora dele, cursor normal" },
+    "image_effects": { "enabled": true, "notes": "Contorno branco de adesivo + canto descolando (peel) no hover; rasgo irregular em SVG mask no topo da cabeça" },
+    "glassmorphism_neumorphism": { "enabled": false },
+    "canvas_drawings": { "enabled": false },
+    "svg_animations": { "enabled": true, "notes": "Ícones-adesivo com micro-animações (foguete tremendo, carinha piscando)" },
+    "composite_notes": "Momento 'uau' único = portal no hero. Resto do site usa o mesmo vocabulário (adesivo, pop, marquee) em intensidade menor para não competir. Foto escolhida: Eduardo-capa-terno.jpeg (fundo claro, cabelo bem delimitado, sorriso aberto: recorta bem e transmite proximidade)."
+  }
+}

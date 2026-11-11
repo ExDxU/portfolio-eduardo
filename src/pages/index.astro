@@ -1,0 +1,275 @@
+---
+import Base from '../layouts/Base.astro';
+import Pic from '../components/Pic.astro';
+
+// Posições em % da caixa do retrato (x: largura, y: altura). A ordem do array é a ordem de empilhamento (o último fica na frente).
+const objetos = [
+  { href: '/servicos', label: 'Serviços', blurb: 'Landing pages rápidas, com SEO desde o primeiro dia.', name: 'obj-servicos', x: 34, y: -5, width: 18, rot: 9, depth: 1.5, delay: 0.6 },
+  { href: '/videos', label: 'Vídeos', blurb: 'IA explicada de um jeito simples, direto do Instagram.', name: 'obj-videos', x: 51, y: -2, width: 11, rot: -5, depth: 2.0, delay: 0.7 },
+  { href: '/sobre', label: 'Sobre mim', blurb: 'Minha história, meus gostos e o que me move.', name: 'obj-sobre', x: 22, y: -1, width: 20, rot: -10, depth: 1.0, delay: 0.5 },
+  { href: '/academico', label: 'Acadêmico', blurb: 'Olimpíadas, Google, Harvard e o que vem pela frente.', name: 'obj-academico', x: 40, y: 3, width: 22, rot: 8, depth: 1.5, delay: 0.8 },
+  { href: '/noticias', label: 'Notícias', blurb: 'Eventos, conquistas e novidades.', name: 'obj-noticias', x: 56, y: 2, width: 19, rot: -8, depth: 1.0, delay: 0.9 },
+];
+---
+<Base
+  title="Eduardo Rivabem | Desenvolvedor, estudante e criador de conteúdo sobre IA"
+  description="Eduardo Rivabem: desenvolvedor, embaixador estudantil do Google 2026 e criador de conteúdo sobre IA. Conheça minha história, serviços, vídeos, trajetória e notícias."
+  preload={{ name: 'portal-cabeca', sizes: '(min-width:701px) min(1100px,58vw), min(96vw,640px)' }}
+>
+  <section class="hero">
+    <h1 class="hero__name">
+      <Pic name="nome-3d" sizes="(min-width:1700px) 1600px, 84vw" alt="Eduardo Rivabem" fetchpriority="high" />
+    </h1>
+
+    <div class="stage" id="stage">
+      <div class="fold fold--front" id="foldFront"><div class="foldin" id="foldIn"><div class="sticker" id="sticker">
+      <Pic class="head-shadow" name="portal-sombra" sizes="(min-width:701px) min(1275px,67vw), min(111vw,740px)" />
+      <Pic class="head" name="portal-cabeca" sizes="(min-width:701px) min(1100px,58vw), min(96vw,640px)" alt="Eduardo Rivabem sorrindo, de terno escuro e gravata vermelha" fetchpriority="high" />
+      <ul class="objs" aria-label="Áreas do site">
+        {objetos.map((o) => (
+          <li class="obj-wrap" style={`--x:${o.x}%;--y:${o.y}%;--w:${o.width}%;--d:${o.depth}`}>
+            <a class="obj" href={o.href} data-label={o.label} style={`--rot:${o.rot}deg;--delay:${o.delay}s`}>
+              <Pic class="obj__img" name={o.name} sizes="(min-width:701px) 310px, 110px" />
+              <span class="sr-only">{o.label}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+      </div></div></div>
+      <div class="fold fold--back" id="foldBack" aria-hidden="true"><div class="flapwrap" id="flapWrap"><div class="flap" id="flap"><div class="crease" id="crease"></div></div></div></div>
+    </div>
+
+    <ul class="areas" aria-label="Ir para uma área">
+      {objetos.map((o) => <li><a href={o.href}>{o.label}</a></li>)}
+    </ul>
+  </section>
+
+  <section class="choose wrap">
+    <h2 class="t2">Quem sou eu?<em>Escolha por onde começar.</em></h2>
+    <ul class="cards">
+      {objetos.map((o, i) => (
+        <li class={`card card--${i % 3}`}>
+          <a href={o.href}>
+            <Pic name={o.name} sizes="110px" loading="lazy" />
+            <span class="card__t">{o.label}</span>
+            <span class="card__p">{o.blurb}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <div class="pill" id="pill" aria-hidden="true"></div>
+</Base>
+
+<style is:global>
+  /* Hero em largura total, como a referência. */
+  .hero{position:relative;overflow:clip;background:var(--cobalt);text-align:center;isolation:isolate;padding-top:84px;padding-bottom:var(--s-4);--W:min(96vw,640px)}
+  @media (min-width:701px){.hero{--W:min(1100px,58vw)}}
+  /* o retrato aparece inteiro: o hero cresce até o fim do adesivo e a seção "Quem sou eu?" vem depois */
+  @media (min-width:701px){.hero{padding-bottom:var(--s-5)}}
+
+  .js .hero:not(.is-ready) *{animation-play-state:paused!important}
+  .hero__name{width:min(1600px,84vw);margin:0 auto;position:relative;z-index:1}
+  .hero__name img{width:100%;height:auto;filter:drop-shadow(0 10px 18px rgba(0,16,74,.45));animation:name-in 1.85s var(--ease-dramatic) backwards}
+  @keyframes name-in{from{transform:translateY(40%) scale(.96);opacity:0;clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
+
+  .stage{position:relative;width:var(--W);aspect-ratio:1456/1696;margin:calc(var(--W) * -0.07) auto 0;z-index:2;--px:0;--py:0}
+  .head{position:relative;display:block;width:100%;height:100%;animation:head-in 1.2s var(--ease-dramatic) .25s backwards}
+  .head-shadow{position:absolute;left:-8.03%;top:-8.03%;width:116.06%;height:116.06%;pointer-events:none;animation:head-in 1.2s var(--ease-dramatic) .25s backwards}
+  @keyframes head-in{from{transform:translateY(24px);opacity:0}}
+
+  /* Os objetos ficam DENTRO da abertura: o recorte segue a borda rasgada da frente da cabeça. */
+  .objs{list-style:none;margin:0;padding:0;position:absolute;inset:0;z-index:3;pointer-events:none;clip-path:polygon(-30.0% -120.0%,130.0% -120.0%,130.0% 10.1%,78.3% 10.1%,78.3% 10.1%,75.9% 10.4%,73.5% 11.6%,71.0% 12.6%,68.6% 12.9%,66.1% 13.6%,63.7% 14.2%,61.2% 13.8%,58.8% 13.3%,56.3% 13.5%,53.9% 14.2%,51.5% 14.6%,49.0% 13.9%,46.6% 14.0%,44.1% 13.5%,41.7% 13.9%,39.2% 14.0%,36.8% 12.5%,34.3% 10.9%,31.9% 11.1%,29.5% 11.8%,27.0% 11.1%,24.6% 10.4%,22.1% 10.7%,19.7% 9.3%,19.7% 9.3%,-30.0% 9.3%)}
+  .obj-wrap{position:absolute;left:var(--x);top:var(--y);width:var(--w);translate:calc(var(--px) * var(--d) * 1px) calc(var(--py) * var(--d) * 1px)}
+  .obj{display:block;position:relative;pointer-events:auto;text-decoration:none;transform:rotate(var(--rot));transition:transform .3s var(--ease-pop);animation:pop 1.6s var(--ease-spring) var(--delay) backwards;-webkit-tap-highlight-color:transparent}
+  @keyframes pop{from{transform:translateY(60%) scale(.2) rotate(-90deg);opacity:0}}
+  .obj:hover,.obj:focus-visible{transform:translateY(-12px) rotate(calc(var(--rot) - 5deg)) scale(1.06)}
+  .obj:active{transform:translateY(-4px) rotate(var(--rot)) scale(.98)}
+  .obj__img{width:100%;height:auto;animation:bob 4.2s ease-in-out infinite alternate;will-change:transform}
+  .obj-wrap:nth-child(2) .obj__img{animation-delay:-.8s}
+  .obj-wrap:nth-child(3) .obj__img{animation-delay:-1.6s}
+  .obj-wrap:nth-child(4) .obj__img{animation-delay:-2.4s}
+  .obj-wrap:nth-child(5) .obj__img{animation-delay:-3.2s}
+  @keyframes bob{to{transform:translateY(-5px)}}
+  .areas{display:none}
+
+  /* adesivo: ao rolar, uma dobra diagonal sobe pelo retrato; a parte dobrada vira o verso branco do adesivo.
+     Tudo é feito só com transform (compositor da GPU): sem filtros, sem máscaras SVG e sem repintar a imagem. */
+  .fold{position:absolute;inset:0}
+  .foldin{position:absolute;inset:0}
+  .sticker{position:absolute;inset:0}
+  .fold--back{display:none;pointer-events:none}
+  .stage.is-folding .fold--back{display:block}
+  .stage.is-folding .fold{inset:auto;left:0;top:0;overflow:hidden}
+  .stage.is-folding .foldin,.stage.is-folding .flapwrap{inset:auto;left:0;top:0;transform-origin:0 0;will-change:transform}
+  .flapwrap{position:absolute;filter:drop-shadow(-8px 12px 10px rgba(0,16,74,.5))}
+  .flap{position:absolute;left:0;top:0;width:100%;height:100%;background:#fff;-webkit-mask:url(/img/portal-cabeca-640.webp?v=1) 0 0/100% 100% no-repeat;mask:url(/img/portal-cabeca-640.webp?v=1) 0 0/100% 100% no-repeat}
+  .crease{position:absolute;left:0;top:0;transform-origin:0 0;background:linear-gradient(to bottom,#fff 0%,#e2e6f1 55%,#9aa4c2 100%)}
+
+  /* quem sou eu: cartões-adesivo que levam às áreas */
+  .choose{padding-block:var(--s-6)}
+  .choose .t2{margin-bottom:var(--s-5);text-align:center}
+  .cards{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:var(--s-4)}
+  .card a{display:grid;gap:var(--s-2);align-content:start;height:100%;padding:var(--s-4);border:2px solid var(--ink);border-radius:var(--r-md);box-shadow:var(--shadow-card);text-decoration:none;color:var(--ink);transition:transform .3s var(--ease-pop),box-shadow .3s var(--ease-pop)}
+  .card a:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+  .card a:active{transform:translate(3px,3px);box-shadow:2px 2px 0 var(--ink)}
+  .card--0 a{background:var(--lime)}.card--1 a{background:var(--white)}.card--2 a{background:var(--mist)}
+  .card img{height:96px;width:auto;max-width:100%;object-fit:contain;object-position:left bottom}
+  .card__t{font:900 italic 1.9rem/.9 var(--font-display);font-stretch:62%;text-transform:uppercase}
+  .card__p{font-size:15px;line-height:1.4}
+
+  /* etiqueta que segue o cursor (só com mouse) */
+  .pill{position:fixed;left:0;top:0;z-index:50;pointer-events:none;padding:9px 14px;border-radius:var(--r-pill);background:var(--white);color:var(--ink);border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);font:600 14px/1 var(--font-body);white-space:nowrap;opacity:0;transform:translate3d(-100px,-100px,0) scale(.6);transition:opacity .15s,scale .3s var(--ease-pop)}
+  .pill.on{opacity:1}
+
+  /* toque: sem cursor, as áreas viram pílulas tocáveis embaixo do retrato */
+  @media (hover:none){
+    .obj:hover{transform:rotate(var(--rot))}
+    .areas{display:flex;flex-wrap:wrap;justify-content:center;gap:var(--s-2);list-style:none;margin:var(--s-4) auto 0;padding:0 var(--s-3);max-width:440px;position:relative;z-index:4}
+    .areas a{display:block;padding:10px 15px;border-radius:var(--r-pill);background:var(--white);color:var(--ink);border:2px solid var(--ink);box-shadow:0 3px 0 var(--ink);font:600 14px/1 var(--font-body);text-decoration:none}
+    .areas a:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+  }
+  @media (max-width:700px){.hero{padding-top:78px}.stage{margin-top:calc(var(--W) * 0.2)}.choose{padding-block:var(--s-5)}}
+</style>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import Lenis from 'lenis';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // As animações de entrada só começam quando as imagens do hero já estão decodificadas (ou após 2,5 s).
+  {
+    const hero = document.querySelector('.hero') as HTMLElement;
+    const imgs = [...hero.querySelectorAll('img')] as HTMLImageElement[];
+    const pronto = () => hero.classList.add('is-ready');
+    Promise.race([
+      Promise.all(imgs.map((i) => i.decode().catch(() => {}))),
+      new Promise((r) => setTimeout(r, 2500)),
+    ]).then(pronto);
+  }
+
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = matchMedia('(hover:hover) and (pointer:fine)').matches;
+
+  // rolagem suave (Lenis, lerp 0.1) integrada ao ScrollTrigger; desligada em "reduzir movimento"
+  if (!reduce) {
+    const lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1 });
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+  }
+
+  /*
+   * O retrato é um adesivo. Quando ele chega ao topo da tela, uma dobra reta e diagonal (34°) começa a
+   * subir por ele. O que passa da dobra é espelhado e vira o verso branco do adesivo; o resto some.
+   *
+   * Desempenho: o recorte é feito com um contêiner girado (overflow:hidden) e a imagem dentro dele recebe a
+   * rotação inversa. Só `transform` muda a cada quadro, então a GPU apenas recompõe camadas já prontas.
+   * Nada de clip-path animado, máscara SVG ou filtro recalculado durante a rolagem.
+   */
+  if (!reduce) {
+    const stage = document.getElementById('stage') as HTMLElement;
+    const front = document.getElementById('foldFront') as HTMLElement;
+    const frontIn = document.getElementById('foldIn') as HTMLElement;
+    const back = document.getElementById('foldBack') as HTMLElement;
+    const flapWrap = document.getElementById('flapWrap') as HTMLElement;
+    const crease = document.getElementById('crease') as HTMLElement;
+    const headImg = stage.querySelector('.head') as HTMLImageElement;
+
+    const TH = (34 * Math.PI) / 180;
+    const dx = Math.cos(TH), dy = Math.sin(TH);   // direção da dobra (desce para a direita)
+    const nx = -dy, ny = dx;                      // normal: aponta para o lado que descola
+    let W = 0, H = 0, Bx = 0, By = 0, D = 0, folding = false;
+
+    const enter = () => {
+      W = headImg.offsetWidth; H = headImg.offsetHeight;
+      if (!W) return false;
+      Bx = Math.ceil((W * dx + H * dy) * 1.3 + 0.3 * W);   // só o necessário: camadas menores pesam menos na GPU
+      By = Math.ceil(ny * H - nx * W + 0.5 * H);
+      D = Math.round(W * 0.45);
+      stage.classList.add('is-folding');
+      for (const el of [front, back]) {
+        el.style.width = `${Bx}px`; el.style.height = `${By}px`; el.style.transformOrigin = `${Bx / 2}px ${By}px`;
+      }
+      for (const el of [frontIn, flapWrap]) {
+        el.style.left = `${Bx / 2}px`; el.style.top = `${By}px`; el.style.width = `${W}px`; el.style.height = `${H}px`;
+      }
+      crease.style.width = `${Bx}px`; crease.style.height = `${D}px`;
+      folding = true;
+      return true;
+    };
+    const leave = () => {
+      stage.classList.remove('is-folding');
+      for (const el of [front, back, frontIn, flapWrap]) el.removeAttribute('style');
+      crease.removeAttribute('style');
+      folding = false;
+    };
+
+    const render = (p: number) => {
+      if (p < 0.002) { if (folding) leave(); return; }
+      if (!folding && !enter()) return;
+      const cMax = ny * H, cMin = nx * W;                    // dobra fora do retrato / varrendo tudo
+      const c = cMax + 6 - p * (cMax - cMin + 12);           // posição da dobra (n·p = c)
+      const t0 = dx * (W / 2) + dy * (H / 2);
+      const Px = c * nx + dx * t0, Py = c * ny + dy * t0;    // ponto da dobra perto do centro do retrato
+      const outer = `translate(${(Px - Bx / 2).toFixed(2)}px,${(Py - By).toFixed(2)}px) rotate(${TH}rad)`;
+      front.style.transform = outer;
+      back.style.transform = outer;
+      // frente: contra-rotação para a imagem continuar no lugar
+      frontIn.style.transform = `rotate(${-TH}rad) translate(${(-Px).toFixed(2)}px,${(-Py).toFixed(2)}px)`;
+      // verso: a mesma imagem refletida na dobra (inversão do eixo perpendicular)
+      flapWrap.style.transform = `scale(1,-1) rotate(${-TH}rad) translate(${(-Px).toFixed(2)}px,${(-Py).toFixed(2)}px)`;
+      // degradê preso à dobra (escuro junto dela), no referencial da própria dobra
+      crease.style.transform = `translate(${Px.toFixed(2)}px,${Py.toFixed(2)}px) rotate(${TH}rad) scale(1,-1) translate(${-Bx / 2}px,${-D}px)`;
+    };
+
+    const state = { p: 0 };
+    // começa quando o topo do retrato chega ao topo da tela e termina quando ele já passou
+    const startPos = () => Math.max(24, stage.getBoundingClientRect().top + scrollY);
+    gsap.to(state, {
+      p: 1, ease: 'none', onUpdate: () => render(state.p),
+      scrollTrigger: {
+        start: () => startPos(),
+        end: () => startPos() + Math.round(stage.offsetHeight * 0.85),
+        scrub: true,
+        invalidateOnRefresh: true,
+        onRefresh: () => { if (folding) leave(); render(state.p); },
+      },
+    });
+    if (!headImg.complete) headImg.addEventListener('load', () => ScrollTrigger.refresh());
+  }
+
+  if (fine && !reduce) {
+    const stage = document.getElementById('stage') as HTMLElement;
+    const pill = document.getElementById('pill') as HTMLElement;
+    let tx = -100, ty = -100, x = -100, y = -100, px = 0, py = 0, tpx = 0, tpy = 0, running = false;
+
+    const loop = () => {
+      x += (tx - x) * 0.18; y += (ty - y) * 0.18;
+      px += (tpx - px) * 0.08; py += (tpy - py) * 0.08;
+      pill.style.transform = `translate3d(${x}px,${y}px,0) translate(-50%,-165%)`;
+      stage.style.setProperty('--px', px.toFixed(2));
+      stage.style.setProperty('--py', py.toFixed(2));
+      if (Math.abs(tx - x) + Math.abs(ty - y) + Math.abs(tpx - px) + Math.abs(tpy - py) > 0.05) requestAnimationFrame(loop);
+      else running = false;
+    };
+    const kick = () => { if (!running) { running = true; requestAnimationFrame(loop); } };
+
+    addEventListener('pointermove', (e) => {
+      tx = e.clientX; ty = e.clientY;
+      const r = stage.getBoundingClientRect();
+      // leve profundidade: ±6px por unidade de profundidade
+      tpx = ((e.clientX - (r.left + r.width / 2)) / innerWidth) * -12;
+      tpy = ((e.clientY - (r.top + r.height / 2)) / innerHeight) * -12;
+      kick();
+    }, { passive: true });
+
+    document.querySelectorAll<HTMLElement>('.obj').forEach((o) => {
+      o.addEventListener('pointerenter', () => { pill.textContent = o.dataset.label ?? ''; pill.classList.add('on'); });
+      o.addEventListener('pointerleave', () => pill.classList.remove('on'));
+    });
+  }
+</script>

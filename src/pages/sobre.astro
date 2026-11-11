@@ -1,0 +1,363 @@
+---
+import Base from '../layouts/Base.astro';
+import Pic from '../components/Pic.astro';
+
+// Posições iniciais no mural, em % da área (x, y) e rotação. Cor: l = verde, w = branco, m = azul claro.
+const gostos = [
+  { t: 'Tecnologia e IA', x: 4, y: 8, r: -5, c: 'l', mx: 3, my: 3 },
+  { t: 'Café', x: 44, y: 6, r: 6, c: 'w', mx: 66, my: 6 },
+  { t: 'Minecraft', x: 22, y: 26, r: -3, c: 'm', mx: 3, my: 15 },
+  { t: 'Forza Horizon 5', x: 62, y: 24, r: 4, c: 'l', mx: 34, my: 25 },
+  { t: 'Guitarra', x: 5, y: 46, r: 5, c: 'w', mx: 62, my: 34 },
+  { t: 'Violão', x: 78, y: 44, r: -6, c: 'l', mx: 4, my: 62 },
+  { t: 'Bateria', x: 80, y: 66, r: 3, c: 'm', mx: 6, my: 73 },
+  { t: 'Leitura nacional e russa', x: 6, y: 74, r: -2, c: 'm', mx: 3, my: 82 },
+  { t: 'Neuropsicologia', x: 44, y: 82, r: 5, c: 'w', mx: 30, my: 91 },
+  { t: 'Desenho realista', x: 72, y: 8, r: -7, c: 'm', mx: 48, my: 68 },
+];
+
+const foco = [
+  { ico: 'notebook', w: 353, h: 360, t: 'Python', p: 'A linguagem e suas bibliotecas, a base de tudo.' },
+  { ico: 'estrela', w: 318, h: 360, t: 'Machine learning', p: 'Como computadores aprendem a partir de dados.' },
+  { ico: 'lupa', w: 297, h: 360, t: 'Ciência de dados', p: 'Transformar dados em respostas e decisões.' },
+];
+
+const caminhos = [
+  { href: '/servicos', t: 'Serviços', p: 'Landing pages rápidas, com SEO desde o primeiro código.' },
+  { href: '/videos', t: 'Vídeos', p: 'Inteligência artificial explicada de um jeito simples, no Instagram.' },
+  { href: '/academico', t: 'Acadêmico', p: 'Olimpíadas, Google, Harvard e o que vem pela frente.' },
+];
+---
+<Base
+  title="Eduardo Rivabem: quem sou, o que faço e do que gosto"
+  description="Sou Eduardo Rivabem, desenvolvedor e entusiasta de IA, a caminho de me tornar engenheiro de inteligência artificial. Conheça minha história, meus gostos e o que faço."
+  preload={{ name: 'sobre-terno', sizes: '(max-width:820px) 70vw, 380px' }}
+>
+  <!-- ABERTURA -->
+  <section class="sb-hero">
+    <div class="sb-hero__in wrap">
+      <div class="sb-hero__txt">
+        <p class="eyebrow">Sobre mim</p>
+        <h1 class="sb-h1"><span>Quem</span> <span>sou eu</span></h1>
+        <div class="sb-bio">
+          <p class="sb-lead">Sou o Eduardo, desenvolvedor de software e entusiasta de inteligência artificial. Meu objetivo é me tornar engenheiro de IA.</p>
+          <p>Hoje crio landing pages rápidas, com SEO no código, e ensino IA no Instagram.</p>
+          <p>O @DevEduardo é feito para iniciantes e curiosos, com um pouco de humor e de vida na faculdade. Nela, sou membro da LICS (Liga de Cibersegurança) e da LIA (Liga de Inteligência Artificial), e sou embaixador estudantil do Google em 2026.</p>
+        </div>
+      </div>
+      <div class="sb-hero__art">
+        <p class="sb-badge"><Pic name="ico-estrela" sizes="38px" /><span>Embaixador estudantil<br>do Google 2026</span></p>
+        <Pic class="sb-photo" name="sobre-terno" sizes="(max-width:820px) 70vw, 380px" alt="Eduardo Rivabem sorrindo, de terno escuro e gravata vermelha" fetchpriority="high" />
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTAQUE: EMBAIXADOR GOOGLE -->
+  <section class="frame frame--inv sb-sec sb-google" aria-labelledby="gTitulo">
+    <div class="wrap sb-google__in">
+      <Pic class="sb-google__ico" name="ico-estrela" sizes="180px" loading="lazy" />
+      <div>
+        <p class="eyebrow">Destaque</p>
+        <h2 class="sb-google__t" id="gTitulo">Embaixador estudantil <em>do Google 2026</em></h2>
+        <p class="sb-lead sb-lead--dark">Em 2026 me tornei embaixador estudantil do Google.</p>
+        <p class="sb-google__go"><a class="btn" href="/academico">Ver minha trajetória</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- MURAL -->
+  <section class="frame frame--inv sb-sec">
+    <div class="wrap">
+      <h2 class="t2">Do que eu gosto<em>pegue e mova</em></h2>
+      <p class="sb-hint" id="muralDica">Aperte o botão para descobrir, um a um, do que eu gosto. Depois, arraste os adesivos para onde quiser (com o teclado: foque em um e use as setas).</p>
+      <div class="mural-box"><ul class="mural" id="mural" aria-describedby="muralDica">
+        {gostos.map((g) => (
+          <li class={`stk stk--${g.c}`} tabindex="0" style={`--x:${g.x}%;--y:${g.y}%;--mx:${g.mx}%;--my:${g.my}%;--r:${g.r}deg`}>{g.t}</li>
+        ))}
+      </ul>
+        <span class="reveal__hint" id="revealHint" aria-hidden="true">Clique aqui <i>↓</i></span>
+        <button class="reveal" id="reveal" type="button"><span class="reveal__t" id="revealT">Descobrir quem eu sou</span><span class="reveal__n" id="revealN" aria-hidden="true"></span></button>
+        <script is:inline>document.getElementById('mural').classList.add('is-interactive')</script>
+      </div>
+      <p class="sr-only" id="muralLive" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- PARA ONDE EU VOU -->
+  <section class="frame sb-sec" id="foco">
+    <div class="wrap">
+      <h2 class="t2">Para onde eu vou<em>engenharia de IA</em></h2>
+      <p class="sb-lead sb-goal">Estou no início da carreira e tenho um grande interesse em me tornar engenheiro de inteligência artificial. Por isso, meus estudos hoje miram em Python e em suas bibliotecas, para construir base em machine learning e ciência de dados.</p>
+      <ul class="sb-focus" aria-label="Foco de estudo atual">
+        {foco.map((f, i) => (
+          <li class={`fc fc--${i}`}>
+            <Pic name={`ico-${f.ico}`} sizes="100px" loading="lazy" />
+            <h3>{f.t}</h3>
+            <p>{f.p}</p>
+          </li>
+        ))}
+      </ul>
+      <p class="sb-note">Foco de estudo atual. Sou entusiasta e estou no começo dessa jornada.</p>
+    </div>
+  </section>
+
+  <!-- O QUE EU FAÇO -->
+  <section class="frame sb-sec">
+    <div class="wrap">
+      <h2 class="t2">O que eu faço<em>em três frentes</em></h2>
+      <ul class="sb-ways">
+        {caminhos.map((c, i) => (
+          <li class={`way way--${i}`}>
+            <a href={c.href}>
+              <span class="way__t">{c.t}</span>
+              <span class="way__p">{c.p}</span>
+              <span class="way__go" aria-hidden="true">→</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- MOMENTOS -->
+  <section class="frame frame--inv sb-sec">
+    <div class="wrap sb-moment">
+      <div>
+        <h2 class="t2">Fora da tela<em>também me encontro</em></h2>
+        <p class="sb-lead sb-lead--dark">Hackathons, eventos e aulas fazem parte do caminho. Aqui eu falando ao microfone em um deles.</p>
+      </div>
+      <figure class="polaroid">
+        <Pic name="foto-hackathon" sizes="(max-width:820px) 92vw, 420px" alt="Eduardo falando ao microfone em um hackathon" loading="lazy" />
+        <figcaption>Hackathon</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- FECHO -->
+  <section class="frame sb-sec sb-end">
+    <div class="wrap">
+      <h2 class="t2">Vamos nos<em>conhecer melhor?</em></h2>
+      <p class="sb-lead">Quer ver meu currículo ou falar comigo? Você me encontra aqui.</p>
+      <p class="sb-cta">
+        <a class="btn" href="https://www.linkedin.com/in/eduardo-rivabem-2164a53b5/" target="_blank" rel="noopener">Ver meu LinkedIn</a>
+        <a class="btn btn--light" href="https://github.com/ExDxU" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn--light" href="mailto:edurivaserrano@gmail.com">E-mail</a>
+      </p>
+      <p class="sb-note">Currículo em PDF: em breve, aqui.</p>
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+  .eyebrow{font:600 13px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin:0 0 var(--s-3)}
+  .sb-sec{padding-block:var(--s-6)}
+  .sb-sec .t2{margin-bottom:var(--s-5)}
+  .sb-lead{font-size:var(--t-22);line-height:1.35;max-width:46ch}
+  .sb-lead--dark{color:var(--ink)}
+  .sb-note{margin-top:var(--s-4);font-size:14px;opacity:.75}
+
+  /* abertura */
+  .sb-hero{background:var(--cobalt);padding-top:96px;padding-bottom:var(--s-6);overflow:clip}
+  .sb-hero__in{display:grid;grid-template-columns:1.1fr .9fr;gap:var(--s-5);align-items:center}
+  .sb-h1{font:900 clamp(3.4rem,10vw,9rem)/.84 var(--font-display);font-stretch:68%;text-transform:uppercase;letter-spacing:-.01em;margin:0 0 var(--s-4)}
+  .sb-h1 span{display:block;white-space:nowrap}
+  .sb-bio{display:grid;gap:var(--s-3);max-width:50ch}
+  .sb-bio p{margin:0}
+  .sb-hero__art{justify-self:center;width:min(380px,100%)}
+  .sb-photo{width:100%;height:auto;rotate:3deg;animation:photo-in 1.4s var(--ease-spring) .2s backwards}
+  @keyframes photo-in{from{transform:translateY(60px) scale(.7) rotate(-14deg);opacity:0}}
+
+  /* selo do Google na abertura */
+  .sb-hero__art{position:relative}
+  .sb-badge{position:absolute;left:-6%;bottom:6%;z-index:2;display:flex;align-items:center;gap:10px;margin:0;padding:10px 16px 10px 10px;background:var(--lime);color:var(--ink);border:2px solid var(--ink);border-radius:var(--r-pill);box-shadow:var(--shadow-card);font:700 14px/1.15 var(--font-body);rotate:-6deg;animation:badge-in 1.4s var(--ease-spring) .9s backwards}
+  .sb-badge img{width:38px;height:auto;filter:none}
+  @keyframes badge-in{from{scale:.3;opacity:0;rotate:-30deg}}
+
+  /* faixa de destaque */
+  .sb-google{padding-block:var(--s-5)}
+  .sb-google__in{display:grid;grid-template-columns:auto 1fr;gap:var(--s-5);align-items:center}
+  .sb-google__ico{width:clamp(96px,16vw,180px);height:auto;rotate:-8deg}
+  .sb-google__t{font:900 clamp(2.2rem,6.5vw,5rem)/.9 var(--font-display);font-stretch:68%;text-transform:uppercase;color:var(--cobalt);margin:0 0 var(--s-3)}
+  .sb-google__t em{display:block;font-style:italic;color:var(--ink)}
+  .sb-google__go{margin:var(--s-4) 0 0}
+
+  /* mural que começa vazio: o botão revela um adesivo por vez */
+  .mural-box{position:relative}
+  .mural.is-interactive .stk:not(.is-in){display:none}
+  .reveal{position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:9999;display:grid;gap:2px;justify-items:center;padding:16px 28px;border-radius:var(--r-pill);border:2px solid var(--ink);background:var(--lime);color:var(--ink);box-shadow:0 5px 0 var(--ink);cursor:pointer;font:700 17px/1.1 var(--font-body);transition:transform .5s var(--ease-spring),box-shadow .5s var(--ease-spring),background .3s}
+  .reveal:hover{transform:translateY(-3px);box-shadow:0 8px 0 var(--ink)}
+  .reveal:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+  .reveal:focus-visible{outline:3px solid var(--white);outline-offset:4px}
+  .reveal__n{font:600 12px/1 var(--font-body);opacity:.7;letter-spacing:.04em}
+  .reveal.is-done{background:var(--white)}
+  .reveal.is-pulse{animation:reveal-pulse .5s var(--ease-spring)}
+  @keyframes reveal-pulse{40%{transform:scale(.92)}}
+  .mural:not(.is-interactive) ~ .reveal,.mural:not(.is-interactive) ~ .reveal__hint{display:none}
+  .reveal.is-idle{animation:reveal-call 1.8s var(--ease-pop) infinite}
+  @keyframes reveal-call{0%,100%{box-shadow:0 5px 0 var(--ink),0 0 0 0 rgba(185,252,1,.75)}50%{box-shadow:0 5px 0 var(--ink),0 0 0 22px rgba(185,252,1,0)}}
+  .reveal__hint{position:absolute;left:50%;top:50%;translate:-50% calc(-50% - 74px);z-index:9998;pointer-events:none;color:var(--white);font:900 italic 1.5rem/1 var(--font-display);font-stretch:62%;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:2px;animation:hint-bob 1.2s ease-in-out infinite alternate}
+  .reveal__hint i{font:900 1.6rem/1 var(--font-body);font-style:normal;color:var(--lime)}
+  .reveal__hint.is-gone{display:none}
+  @keyframes hint-bob{to{transform:translateY(7px)}}
+
+
+  /* mural de adesivos */
+  .sb-hint{color:var(--ink);max-width:60ch;margin:0 0 var(--s-4);opacity:.85}
+  .mural{list-style:none;margin:0;padding:0;position:relative;height:clamp(440px,64vw,560px);background:var(--cobalt);border:2px solid var(--ink);border-radius:var(--r-lg);box-shadow:var(--shadow-card);overflow:hidden;touch-action:pan-y}
+  .stk{position:absolute;left:var(--x);top:var(--y);padding:12px 18px;border-radius:14px;border:2px solid var(--ink);font:900 italic clamp(1rem,2.6vw,1.6rem)/1 var(--font-display);font-stretch:62%;text-transform:uppercase;color:var(--ink);box-shadow:0 4px 0 var(--ink);cursor:grab;user-select:none;-webkit-user-select:none;rotate:var(--r);transition:box-shadow .3s var(--ease-pop),scale .3s var(--ease-pop);white-space:nowrap;touch-action:none}
+  .stk--l{background:var(--lime)}.stk--w{background:var(--white)}.stk--m{background:var(--mist)}
+  .stk:hover{scale:1.04}
+  .stk.is-drag{cursor:grabbing;box-shadow:0 14px 0 var(--ink);scale:1.08;z-index:20;transition:none}
+  .stk:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+
+  /* foco de estudo */
+  .sb-goal{max-width:62ch;margin-bottom:var(--s-5)}
+  .sb-focus{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:var(--s-4)}
+  .fc{display:grid;gap:var(--s-2);align-content:start;padding:var(--s-4);border:2px solid var(--ink);border-radius:var(--r-md);box-shadow:var(--shadow-card);color:var(--ink)}
+  .fc--0{background:var(--lime)}.fc--1{background:var(--white)}.fc--2{background:var(--mist)}
+  .fc img{height:84px;width:auto;max-width:100%;object-fit:contain;object-position:left center}
+  .fc h3{font:900 italic 1.8rem/.9 var(--font-display);font-stretch:62%;text-transform:uppercase;margin-top:var(--s-2)}
+  .fc p{font-size:15px;line-height:1.45;margin:0}
+
+  /* três frentes */
+  .sb-ways{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:var(--s-4)}
+  .way a{display:grid;gap:var(--s-2);height:100%;padding:var(--s-4);border:2px solid var(--ink);border-radius:var(--r-md);box-shadow:var(--shadow-card);text-decoration:none;color:var(--ink);transition:transform .3s var(--ease-pop),box-shadow .3s var(--ease-pop)}
+  .way a:hover{transform:translate(-3px,-3px);box-shadow:9px 9px 0 var(--ink)}
+  .way--0 a{background:var(--lime)}.way--1 a{background:var(--white)}.way--2 a{background:var(--mist)}
+  .way__t{font:900 italic 2.2rem/.9 var(--font-display);font-stretch:62%;text-transform:uppercase}
+  .way__p{font-size:15px;line-height:1.4}
+  .way__go{font:900 1.8rem/1 var(--font-display);margin-top:var(--s-2)}
+
+  /* momento */
+  .sb-moment{display:grid;grid-template-columns:1fr 1fr;gap:var(--s-5);align-items:center}
+  .sb-moment .t2{margin-bottom:var(--s-4)}
+  .polaroid{margin:0;justify-self:center;width:min(420px,100%);padding:12px 12px 8px;background:var(--white);border:2px solid var(--ink);border-radius:6px;box-shadow:var(--shadow-card);rotate:-3deg;transition:rotate .4s var(--ease-pop)}
+  .polaroid:hover{rotate:0deg}
+  .polaroid img{width:100%;height:auto;border-radius:2px}
+  .polaroid figcaption{font:700 1.1rem/1 var(--font-display);font-stretch:68%;text-transform:uppercase;color:var(--ink);padding:10px 4px 4px}
+
+  .sb-end{text-align:center}
+  .sb-end .t2,.sb-end .sb-lead{margin-inline:auto}
+  .sb-cta{display:flex;flex-wrap:wrap;gap:var(--s-3);justify-content:center;margin-top:var(--s-4)}
+
+  @media (max-width:820px){
+    .sb-google__in{grid-template-columns:1fr}
+    .sb-badge{left:0;bottom:2%}
+    .sb-hero__in,.sb-moment{grid-template-columns:1fr}
+    .sb-hero__art{order:-1;width:min(260px,70%)}
+    .sb-hero{padding-top:88px}
+    .sb-sec{padding-block:var(--s-5)}
+    .mural{height:clamp(660px,178vw,720px)}
+    .stk{left:var(--mx);top:var(--my)}
+  }
+  @media (prefers-reduced-motion:reduce){.sb-photo,.stk,.sb-badge,.reveal,.reveal__hint{animation:none!important}}
+</style>
+
+<script>
+  import { initSmooth } from '../scripts/smooth';
+
+  initSmooth();
+
+  // Mural: arrastar com mouse ou toque (pointer events) e mover com as setas. Posição guardada em % para continuar responsivo.
+  const mural = document.getElementById('mural') as HTMLElement;
+  const stickers = [...mural.querySelectorAll<HTMLElement>('.stk')];
+  let topZ = 10;
+
+  const place = (el: HTMLElement, xPx: number, yPx: number) => {
+    const w = mural.clientWidth, h = mural.clientHeight;
+    const x = Math.min(Math.max(0, xPx), w - el.offsetWidth);
+    const y = Math.min(Math.max(0, yPx), h - el.offsetHeight);
+    const px = `${((x / w) * 100).toFixed(2)}%`, py = `${((y / h) * 100).toFixed(2)}%`;
+    el.style.setProperty('--x', px); el.style.setProperty('--mx', px);   // desktop e celular guardam a mesma posição
+    el.style.setProperty('--y', py); el.style.setProperty('--my', py);
+  };
+
+  // mantém tudo dentro do mural (ao carregar e ao redimensionar)
+  const fit = () => stickers.forEach((el) => { if (el.classList.contains('is-in')) place(el, el.offsetLeft, el.offsetTop); });
+  addEventListener('resize', fit);
+
+  // ---------- botão central: cada clique faz um adesivo novo sair dele ----------
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const btn = document.getElementById('reveal') as HTMLButtonElement;
+  const btnT = document.getElementById('revealT') as HTMLElement;
+  const btnN = document.getElementById('revealN') as HTMLElement;
+  const live = document.getElementById('muralLive') as HTMLElement;
+  const total = stickers.length;
+  const initial = stickers.map((el) => ({
+    x: el.style.getPropertyValue('--x'), y: el.style.getPropertyValue('--y'),
+    mx: el.style.getPropertyValue('--mx'), my: el.style.getPropertyValue('--my'),
+  }));
+  const SPRING = 'linear(0,0.5737 7.6%,0.8382 11.87%,0.9463 14.19%,1.0292 16.54%,1.0886 18.97%,1.1258 21.53%,1.137 22.97%,1.1424 24.48%,1.1423 26.1%,1.1366 27.86%,1.1165 31.01%,1.0507 38.62%,1.0219 42.57%,0.9995 46.99%,0.9872 51.63%,0.9842 58.77%,1.0011 81.26%,1)';
+  let shown = 0;
+
+  const label = () => {
+    const done = shown >= total;
+    btnT.textContent = shown === 0 ? 'Descobrir quem eu sou' : done ? 'Recomeçar' : 'Mais um';
+    btnN.textContent = shown === 0 ? `0 de ${total}` : `${shown} de ${total}`;
+    btn.classList.toggle('is-done', done);
+  };
+  label();
+  const hint = document.getElementById('revealHint') as HTMLElement;
+  const setIdle = (v: boolean) => { btn.classList.toggle('is-idle', v); hint.classList.toggle('is-gone', !v); };
+  setIdle(true);
+
+  const reveal = () => {
+    const el = stickers[shown];
+    el.classList.add('is-in');
+    el.style.zIndex = String(++topZ);
+    place(el, el.offsetLeft, el.offsetTop);                 // garante que cabe na área
+    shown++;
+    setIdle(false);
+    label();
+    live.textContent = `${el.textContent}. ${shown} de ${total}.`;
+    if (reduce) return;
+    // o adesivo sai do centro do botão e cai no lugar, em mola
+    const mr = mural.getBoundingClientRect();
+    const dx = mr.left + mr.width / 2 - (mr.left + el.offsetLeft + el.offsetWidth / 2);
+    const dy = mr.top + mr.height / 2 - (mr.top + el.offsetTop + el.offsetHeight / 2);
+    el.animate(
+      [{ translate: `${dx}px ${dy}px`, scale: 0.2, opacity: 0 }, { translate: '0px 0px', scale: 1, opacity: 1 }],
+      { duration: 900, easing: SPRING, fill: 'backwards' },
+    );
+    btn.classList.remove('is-pulse'); void btn.offsetWidth; btn.classList.add('is-pulse');
+  };
+
+  const restart = () => {
+    stickers.forEach((el, i) => {
+      el.classList.remove('is-in');
+      el.style.zIndex = '';
+      const o = initial[i];
+      el.style.setProperty('--x', o.x); el.style.setProperty('--y', o.y);
+      el.style.setProperty('--mx', o.mx); el.style.setProperty('--my', o.my);
+    });
+    shown = 0; label(); setIdle(true);
+    live.textContent = 'Mural reiniciado.';
+  };
+
+  btn.addEventListener('click', () => (shown >= total ? restart() : reveal()));
+
+  stickers.forEach((el) => {
+    el.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0 && e.pointerType === 'mouse') return;
+      el.setPointerCapture(e.pointerId);
+      el.classList.add('is-drag');
+      el.style.zIndex = String(++topZ);
+      const r = mural.getBoundingClientRect();
+      const dx = e.clientX - (r.left + el.offsetLeft), dy = e.clientY - (r.top + el.offsetTop);
+      const move = (ev: PointerEvent) => place(el, ev.clientX - r.left - dx, ev.clientY - r.top - dy);
+      const up = () => { el.classList.remove('is-drag'); el.removeEventListener('pointermove', move); el.removeEventListener('pointerup', up); el.removeEventListener('pointercancel', up); };
+      el.addEventListener('pointermove', move);
+      el.addEventListener('pointerup', up);
+      el.addEventListener('pointercancel', up);
+    });
+    el.addEventListener('keydown', (e) => {
+      const step = e.shiftKey ? 48 : 16;
+      const d: Record<string, [number, number]> = { ArrowLeft: [-step, 0], ArrowRight: [step, 0], ArrowUp: [0, -step], ArrowDown: [0, step] };
+      const v = d[e.key];
+      if (!v) return;
+      e.preventDefault();
+      el.style.zIndex = String(++topZ);
+      place(el, el.offsetLeft + v[0], el.offsetTop + v[1]);
+    });
+  });
+</script>

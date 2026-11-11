@@ -1,0 +1,40 @@
+*,*::before,*::after{box-sizing:border-box}
+html{background:var(--cobalt-night);-webkit-text-size-adjust:100%;scroll-behavior:auto}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{margin:0;background:var(--cobalt-night);color:var(--white);font:400 var(--t-17)/1.5 var(--font-body);-webkit-font-smoothing:antialiased;min-height:100svh}
+img{display:block;max-width:100%;height:auto}
+picture{display:contents}
+a{color:inherit}
+h1,h2,h3,p{margin:0}
+:focus-visible{outline:3px solid var(--lime);outline-offset:3px;border-radius:6px}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:var(--s-3);top:-60px;background:var(--lime);color:var(--ink);padding:var(--s-2) var(--s-3);border-radius:var(--r-pill);font-weight:600;z-index:100;transition:top .2s}
+.skip:focus{top:var(--s-3)}
+
+.frame{background:var(--cobalt);border-radius:var(--r-xl);margin:12px auto;max-width:1240px;overflow:clip}
+.frame--inv{background:var(--white);color:var(--cobalt)}
+.wrap{max-width:1180px;margin-inline:auto;padding-inline:max(16px,env(safe-area-inset-left,0px)) max(16px,env(safe-area-inset-right,0px))}
+
+/* botões: pílula com contorno e sombra sólida */
+.btn{display:inline-flex;align-items:center;gap:var(--s-2);padding:11px 20px;border-radius:var(--r-pill);border:2px solid var(--ink);font:600 15px/1 var(--font-body);text-decoration:none;cursor:pointer;background:var(--lime);color:var(--ink);box-shadow:var(--shadow-sticker);transition:transform .5s var(--ease-spring),box-shadow .5s var(--ease-spring)}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--ink)}
+.btn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.btn--light{background:var(--white);color:var(--cobalt)}
+
+/* título de duas linhas: branco + verde (azul no fundo branco) */
+.t2{font:600 clamp(1.875rem,4.6vw,3.3125rem)/1.02 var(--font-body);letter-spacing:-.03em;text-wrap:balance}
+.t2 em{display:block;font-style:normal;color:var(--lime)}
+.frame--inv .t2 em{color:var(--cobalt)}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+/* Troca de página: a nova página "rasga" o papel de baixo para cima. CSS puro (View Transitions entre páginas):
+   nenhum JavaScript, e quem não tem suporte navega normalmente. */
+@view-transition{navigation:auto}
+::view-transition-old(root){animation:none}
+::view-transition-new(root){animation:rasgo .75s var(--ease-dramatic) both}
+@keyframes rasgo{from{clip-path:polygon(0.0% 102.87%,4.17% 101.77%,8.33% 104.97%,12.5% 101.26%,16.67% 104.23%,20.83% 103.14%,25.0% 101.17%,29.17% 104.05%,33.33% 101.04%,37.5% 103.58%,41.67% 101.25%,45.83% 101.38%,50.0% 103.52%,54.17% 106.09%,58.33% 101.59%,62.5% 102.23%,66.67% 104.82%,70.83% 106.87%,75.0% 104.49%,79.17% 103.34%,83.33% 107.05%,87.5% 101.1%,91.67% 106.29%,95.83% 102.65%,100.0% 101.72%,100% 130%,0% 130%)}to{clip-path:polygon(0.0% -7.13%,4.17% -8.23%,8.33% -5.03%,12.5% -8.74%,16.67% -5.77%,20.83% -6.86%,25.0% -8.83%,29.17% -5.95%,33.33% -8.96%,37.5% -6.42%,41.67% -8.75%,45.83% -8.62%,50.0% -6.48%,54.17% -3.91%,58.33% -8.41%,62.5% -7.77%,66.67% -5.18%,70.83% -3.13%,75.0% -5.51%,79.17% -6.66%,83.33% -2.95%,87.5% -8.9%,91.67% -3.71%,95.83% -7.35%,100.0% -8.28%,100% 130%,0% 130%)}}
+@media (prefers-reduced-motion:reduce){::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}

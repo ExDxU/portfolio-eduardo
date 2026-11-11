@@ -1,0 +1,212 @@
+---
+import Base from '../layouts/Base.astro';
+import Pic from '../components/Pic.astro';
+
+// Linha do tempo. Para adicionar uma conquista: copie um bloco, em ordem. `quando` é opcional (ex.: '2026'); sem ele nada é mostrado.
+const grupos = [
+  {
+    t: 'Ensino médio',
+    itens: [
+      { selo: '★', t: 'Destaque na OBMEP', p: 'Olimpíada Brasileira de Matemática das Escolas Públicas.', quando: '' },
+      { selo: '★', t: 'Destaque na OMU', p: 'Olimpíada de Matemática da Unicamp.', quando: '' },
+      { selo: '3º', t: '3º lugar na OBG', p: 'Olimpíada Brasileira de Geografia.', quando: '' },
+    ],
+  },
+  {
+    t: 'Aprovações no vestibular',
+    itens: [
+      { selo: '✓', t: 'Sistemas de Informação', p: 'Unicamp.', quando: '' },
+      { selo: '✓', t: 'Engenharia da Computação', p: 'Instituto Federal de São Paulo (IFSP).', quando: '' },
+      { selo: '✓', t: 'Engenharia de Software', p: 'PUC-Campinas.', quando: '' },
+      { selo: '✓', t: 'Matemática', p: 'Unesp.', quando: '' },
+    ],
+  },
+  {
+    t: 'Faculdade e além',
+    itens: [
+      { selo: 'L', t: 'Membro da LICS', p: 'Liga de Cibersegurança.', quando: '' },
+      { selo: 'IA', t: 'Membro da LIA', p: 'Liga de Inteligência Artificial.', quando: '' },
+      { selo: 'CS', t: 'CS50, de Harvard', p: 'Curso de ciência da computação da Universidade de Harvard.', quando: '' },
+      { selo: '@', t: 'Criei o @DevEduardo', p: 'IA para iniciantes e curiosos, com humor e vida na faculdade.', quando: '' },
+      { selo: '★', t: 'Embaixador estudantil do Google', p: 'Em 2026.', quando: '', destaque: true },
+    ],
+  },
+];
+---
+<Base
+  title="Trajetória acadêmica: olimpíadas, CS50 e Google | Eduardo Rivabem"
+  description="Olimpíadas de matemática e geografia, aprovação em quatro cursos, CS50 de Harvard, ligas de cibersegurança e IA e embaixador estudantil do Google 2026."
+  preload={{ name: 'obj-academico', sizes: '(max-width:820px) 60vw, 360px' }}
+>
+  <!-- ABERTURA -->
+  <section class="ac-hero">
+    <div class="ac-hero__in wrap">
+      <div>
+        <p class="eyebrow">Acadêmico</p>
+        <h1 class="ac-h1"><span>Trajetória</span> <em>acadêmica</em></h1>
+        <p class="ac-lead">Olimpíadas, aprovações em quatro cursos, o CS50 de Harvard, as ligas da faculdade e o Google. E o que vem pela frente.</p>
+        <p class="ac-cta">
+          <a class="btn btn--big" href="#linha">Ver a linha do tempo</a>
+          <a class="btn btn--light btn--big" href="#futuro">Para onde eu vou</a>
+        </p>
+      </div>
+      <div class="ac-hero__art" aria-hidden="true">
+        <Pic class="ac-cap" name="obj-academico" sizes="(max-width:820px) 60vw, 360px" fetchpriority="high" />
+        <Pic class="ac-spark" name="ico-estrela" sizes="80px" />
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTAQUE -->
+  <section class="frame frame--inv ac-sec ac-google" aria-labelledby="gT">
+    <div class="wrap ac-google__in">
+      <Pic class="ac-google__ico" name="ico-estrela" sizes="180px" loading="lazy" />
+      <div>
+        <p class="eyebrow">Destaque</p>
+        <h2 class="ac-google__t" id="gT">Embaixador estudantil <em>do Google 2026</em></h2>
+        <p class="ac-lead ac-lead--dark">Em 2026 me tornei embaixador estudantil do Google.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- LINHA DO TEMPO -->
+  <section class="frame ac-sec" id="linha">
+    <div class="wrap">
+      <h2 class="t2">Linha do tempo<em>do começo até aqui</em></h2>
+      {grupos.map((g) => (
+        <div class="tl-group">
+          <h3 class="tl-h">{g.t}</h3>
+          <ol class="tl">
+            {g.itens.map((it) => (
+              <li class={`ev${it.destaque ? ' ev--star' : ''}`}>
+                <span class="medal" aria-hidden="true">{it.selo}</span>
+                <div class="ev__b">
+                  {it.destaque && <span class="ev__tag">Destaque</span>}
+                  <h4>{it.t}</h4>
+                  <p>{it.p}</p>
+                  {it.quando && <time>{it.quando}</time>}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- FUTURO -->
+  <section class="frame frame--inv ac-sec" id="futuro">
+    <div class="wrap">
+      <h2 class="t2">Para onde eu vou<em>engenharia de IA</em></h2>
+      <p class="ac-lead ac-lead--dark ac-goal">Estou no início da carreira e tenho um grande interesse em me tornar engenheiro de inteligência artificial. Meus estudos hoje miram em Python e em suas bibliotecas, para construir base em machine learning e ciência de dados.</p>
+      <ul class="ac-chips" aria-label="Foco de estudo atual">
+        <li>Python</li><li>Machine learning</li><li>Ciência de dados</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FECHO -->
+  <section class="frame ac-sec ac-end">
+    <div class="wrap">
+      <h2 class="t2">Quer saber mais<em>sobre mim?</em></h2>
+      <p class="ac-lead">Você me encontra no LinkedIn e no GitHub, ou pode me escrever.</p>
+      <p class="ac-cta ac-cta--c">
+        <a class="btn btn--big" href="https://www.linkedin.com/in/eduardo-rivabem-2164a53b5/" target="_blank" rel="noopener">Ver meu LinkedIn</a>
+        <a class="btn btn--light btn--big" href="https://github.com/ExDxU" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn btn--light btn--big" href="mailto:edurivaserrano@gmail.com">E-mail</a>
+      </p>
+      <p class="ac-note">Currículo em PDF: em breve, aqui.</p>
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+  .eyebrow{font:600 13px/1 var(--font-body);letter-spacing:.12em;text-transform:uppercase;opacity:.8;margin:0 0 var(--s-3)}
+  .btn--big{padding:15px 24px;font-size:16px}
+  .ac-sec{padding-block:var(--s-6)}
+  .ac-sec .t2{margin-bottom:var(--s-5)}
+  .ac-lead{max-width:50ch;font-size:var(--t-22);line-height:1.35}
+  .ac-lead--dark{color:var(--ink)}
+  .ac-cta{display:flex;flex-wrap:wrap;gap:var(--s-3);margin-top:var(--s-4)}
+  .ac-cta--c{justify-content:center}
+  .ac-note{margin-top:var(--s-4);font-size:14px;opacity:.75}
+
+  /* abertura */
+  .ac-hero{background:var(--cobalt);padding-top:96px;padding-bottom:var(--s-6);overflow:clip}
+  .ac-hero__in{display:grid;grid-template-columns:1.2fr .8fr;gap:var(--s-5);align-items:center}
+  .ac-h1{font:900 clamp(3.2rem,9.5vw,8.5rem)/.84 var(--font-display);font-stretch:68%;text-transform:uppercase;letter-spacing:-.01em;margin:0 0 var(--s-4)}
+  .ac-h1 span,.ac-h1 em{display:block;white-space:nowrap}
+  .ac-h1 em{font-style:italic;font-stretch:62%;color:var(--lime)}
+  .ac-hero__art{position:relative;justify-self:center;width:min(360px,80%)}
+  .ac-cap{width:100%;height:auto;rotate:-6deg;animation:ac-in 1.6s var(--ease-spring) .2s backwards,ac-bob 4.2s ease-in-out 1.8s infinite alternate;will-change:transform}
+  .ac-spark{position:absolute;right:-8%;top:-10%;width:26%;height:auto;animation:ac-in 1.6s var(--ease-spring) .6s backwards}
+  @keyframes ac-in{from{transform:translateY(40px) scale(.3) rotate(-60deg);opacity:0}}
+  @keyframes ac-bob{to{transform:translateY(-8px)}}
+
+  /* destaque Google */
+  .ac-google{padding-block:var(--s-5)}
+  .ac-google__in{display:grid;grid-template-columns:auto 1fr;gap:var(--s-5);align-items:center}
+  .ac-google__ico{width:clamp(96px,16vw,180px);height:auto;rotate:-8deg}
+  .ac-google__t{font:900 clamp(2.2rem,6.5vw,5rem)/.9 var(--font-display);font-stretch:68%;text-transform:uppercase;color:var(--cobalt);margin:0 0 var(--s-3)}
+  .ac-google__t em{display:block;font-style:italic;color:var(--ink)}
+
+  /* linha do tempo */
+  .tl-group{margin-top:var(--s-5)}
+  .tl-h{font:900 italic clamp(1.8rem,4vw,2.6rem)/.95 var(--font-display);font-stretch:62%;text-transform:uppercase;color:var(--lime);margin:0 0 var(--s-4)}
+  .tl{list-style:none;margin:0;padding:0 0 0 54px;display:grid;gap:var(--s-3);position:relative;max-width:820px}
+  .tl::before{content:"";position:absolute;left:19px;top:10px;bottom:10px;width:3px;background:rgba(255,255,255,.3);border-radius:3px}
+  .ev{position:relative}
+  .ev__b{background:var(--cobalt-deep);border:2px solid var(--ink);border-radius:var(--r-md);padding:var(--s-3) var(--s-4);box-shadow:0 4px 0 var(--ink)}
+  .ev h4{font:600 var(--t-22)/1.15 var(--font-body);letter-spacing:-.02em;margin:0}
+  .ev p{margin:4px 0 0;font-size:15px;opacity:.9}
+  .ev time{display:inline-block;margin-top:8px;font:700 12px/1 var(--font-body);color:var(--lime)}
+  .medal{position:absolute;left:-54px;top:10px;width:40px;height:40px;border-radius:50%;background:var(--lime);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink);display:grid;place-items:center;font:900 15px/1 var(--font-display);font-stretch:68%;color:var(--ink)}
+  .ev--star .ev__b{background:var(--lime);color:var(--ink);box-shadow:6px 6px 0 var(--ink)}
+  .ev--star .ev__b h4{font:900 italic clamp(1.6rem,3.4vw,2.2rem)/.95 var(--font-display);font-stretch:62%;text-transform:uppercase}
+  .ev--star .medal{background:var(--white);width:46px;height:46px;left:-57px;font-size:20px}
+  .ev__tag{display:inline-block;margin-bottom:8px;background:var(--ink);color:var(--lime);border-radius:var(--r-pill);padding:4px 10px;font:700 11px/1 var(--font-body);letter-spacing:.06em;text-transform:uppercase}
+
+  /* carimbo: a medalha "bate" na linha ao entrar na tela */
+  .js .ev:not(.is-in) .medal{opacity:0}
+  .ev.is-in .medal{animation:stamp .7s var(--ease-spring) backwards}
+  .ev.is-in .ev__b{animation:thump .35s var(--ease-pop) .12s}
+  @keyframes stamp{from{scale:2.6;rotate:-35deg;opacity:0}30%{opacity:1}}
+  @keyframes thump{40%{transform:translateY(3px)}}
+
+  /* futuro */
+  .ac-goal{margin-bottom:var(--s-4)}
+  .ac-chips{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:var(--s-2)}
+  .ac-chips li{padding:10px 18px;border-radius:var(--r-pill);border:2px solid var(--ink);background:var(--lime);color:var(--ink);font:700 15px/1 var(--font-body);box-shadow:0 3px 0 var(--ink)}
+  .ac-chips li:nth-child(2){background:var(--white)}.ac-chips li:nth-child(3){background:var(--mist)}
+
+  .ac-end{text-align:center}
+  .ac-end .t2,.ac-end .ac-lead{margin-inline:auto}
+
+  @media (max-width:820px){
+    .ac-hero__in,.ac-google__in{grid-template-columns:1fr}
+    .ac-hero__art{order:-1;width:min(220px,60%);justify-self:start;margin-left:var(--s-3)}
+    .ac-hero{padding-top:88px}
+    .ac-sec{padding-block:var(--s-5)}
+    .tl{padding-left:50px}
+    .medal{left:-50px}
+    .ev--star .medal{left:-53px}
+  }
+  @media (prefers-reduced-motion:reduce){.ac-cap,.ac-spark{animation:none}.ev.is-in .medal,.ev.is-in .ev__b{animation:none}.js .ev:not(.is-in) .medal{opacity:1}}
+</style>
+
+<script>
+  import { initSmooth } from '../scripts/smooth';
+
+  initSmooth();
+
+  // Carimbos: cada medalha bate na linha quando o evento entra na tela.
+  const eventos = [...document.querySelectorAll<HTMLElement>('.ev')];
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((es) => {
+      es.forEach((e) => { if (e.isIntersecting) { (e.target as HTMLElement).classList.add('is-in'); io.unobserve(e.target); } });
+    }, { threshold: 0.6 });
+    eventos.forEach((el) => io.observe(el));
+  } else {
+    eventos.forEach((el) => el.classList.add('is-in'));
+  }
+</script>

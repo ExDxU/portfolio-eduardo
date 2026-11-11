@@ -1,0 +1,8 @@
+node_modules
+dist
+.astro
+.env
+assets-recortados
+assets-ml
+assets-fontes
+assets-capas

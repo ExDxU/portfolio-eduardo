@@ -1,0 +1,153 @@
+---
+import '../styles/tokens.css';
+import '../styles/global.css';
+import { IMG, srcset, AQUECER, V } from '../data/imagens';
+
+interface Props {
+  title: string;
+  description: string;
+  preload?: { name: string; sizes: string };
+  type?: 'website' | 'article';
+  published?: string;
+  graph?: Record<string, unknown>[];   // itens extras do JSON-LD (ex.: BlogPosting)
+}
+const { title, description, preload, type = 'website', published, graph = [] } = Astro.props;
+
+// Tudo que depende do domínio só é emitido quando `site` está definido em astro.config.mjs.
+const site = Astro.site;
+const caminho = Astro.url.pathname.replace(/\/$/, '') || '/';
+const canonical = site ? new URL(caminho === '/' ? '/' : caminho, site).href : undefined;
+const ogImage = site ? new URL('/og-image.jpg', site).href : undefined;
+const base = site ? site.href.replace(/\/$/, '') : '';
+const jsonld = site ? {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'WebSite', '@id': `${base}/#website`, url: `${base}/`, name: 'Eduardo Rivabem', inLanguage: 'pt-BR', publisher: { '@id': `${base}/#pessoa` } },
+    {
+      '@type': 'Person', '@id': `${base}/#pessoa`, name: 'Eduardo Rivabem', url: `${base}/`,
+      jobTitle: 'Desenvolvedor de software', description: 'Desenvolvedor de software, embaixador estudantil do Google em 2026 e criador de conteúdo sobre inteligência artificial.',
+      image: ogImage,
+      address: { '@type': 'PostalAddress', addressLocality: 'Limeira', addressRegion: 'SP', addressCountry: 'BR' },
+      sameAs: ['https://www.linkedin.com/in/eduardo-rivabem-2164a53b5/', 'https://github.com/ExDxU', 'https://www.instagram.com/devEduardo'],
+    },
+    {
+      '@type': 'ProfessionalService', '@id': `${base}/#servico`, name: 'Eduardo Rivabem: landing pages', url: `${base}/servicos`,
+      description: 'Criação de landing pages rápidas, com SEO integrado, para clientes em qualquer lugar.',
+      founder: { '@id': `${base}/#pessoa` }, areaServed: 'Brasil e exterior', image: ogImage,
+      address: { '@type': 'PostalAddress', addressLocality: 'Limeira', addressRegion: 'SP', addressCountry: 'BR' },
+    },
+    ...graph,
+  ],
+} : undefined;
+const areas = [
+  { href: '/sobre', label: 'Sobre mim' },
+  { href: '/servicos', label: 'Serviços' },
+  { href: '/videos', label: 'Vídeos' },
+  { href: '/academico', label: 'Acadêmico' },
+  { href: '/noticias', label: 'Notícias' },
+];
+---
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <script is:inline>document.documentElement.classList.add('js')</script>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0131CD" />
+    <meta property="og:type" content={type} />
+    {published && <meta property="article:published_time" content={published} />}
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Eduardo Rivabem" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    {canonical && <meta property="og:url" content={canonical} />}
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    {ogImage && <meta property="og:image:width" content="1200" />}
+    {ogImage && <meta property="og:image:height" content="630" />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="preload" href="/fonts/instrument-sans-latin-wght-normal.woff2?v=1" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/archivo-latin-wdth-normal.woff2?v=1" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/archivo-latin-wdth-italic.woff2?v=1" as="font" type="font/woff2" crossorigin />
+    {preload && <link rel="preload" as="image" type="image/avif" imagesrcset={srcset(preload.name, 'avif')} imagesizes={preload.sizes} fetchpriority="high" />}
+    {jsonld && <script type="application/ld+json" set:html={JSON.stringify(jsonld)} />}
+  </head>
+  <body>
+    <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+    <header class="top wrap">
+      <details class="menu">
+        <summary class="btn btn--light menu__btn">Menu</summary>
+        <nav class="menu__panel" aria-label="Áreas do site">
+          <a href="/">Início</a>
+          {areas.map((a) => <a href={a.href}>{a.label}</a>)}
+        </nav>
+      </details>
+      <a class="btn" href="mailto:edurivaserrano@gmail.com">Fale comigo</a>
+    </header>
+    <main id="conteudo">
+      <slot />
+    </main>
+    <footer class="foot wrap">
+      <p class="foot__name">Eduardo Rivabem</p>
+      <p class="foot__links">
+        <a href="mailto:edurivaserrano@gmail.com">edurivaserrano@gmail.com</a>
+        <a href="https://www.instagram.com/devEduardo" rel="noopener" target="_blank">Instagram @DevEduardo</a>
+        <a href="https://www.linkedin.com/in/eduardo-rivabem-2164a53b5/" rel="noopener" target="_blank">LinkedIn</a>
+        <a href="https://github.com/ExDxU" rel="noopener" target="_blank">GitHub</a>
+      </p>
+    </footer>
+
+<script define:vars={{ rotas: AQUECER, imgs: IMG, v: V }}>
+  // Depois que a página carrega, baixa em segundo plano as imagens das outras páginas.
+  // Ao trocar de página, elas já estão no cache e aparecem na hora. Usa <picture> de verdade, então o
+  // navegador escolhe sozinho o formato (AVIF/WebP) e o tamanho certos. Respeita "economizar dados".
+  addEventListener('load', () => {
+    const c = navigator.connection;
+    if (c && (c.saveData || /2g/.test(c.effectiveType || ''))) return;
+    const aqui = location.pathname.replace(/\/$/, '') || '/';
+    const fila = [];
+    for (const rota in rotas) if (rota !== aqui) fila.push(...rotas[rota]);
+    const caixa = document.createElement('div');
+    caixa.setAttribute('aria-hidden', 'true');
+    caixa.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none';
+    document.body.appendChild(caixa);
+    const proxima = () => {
+      const item = fila.shift();
+      if (!item) return;
+      const [nome, sizes] = item, d = imgs[nome];
+      const ss = (ext) => d.widths.map((w) => `/img/${nome}-${w}.${ext}?v=${v} ${w}w`).join(', ');
+      const pic = document.createElement('picture');
+      const src = document.createElement('source');
+      src.type = 'image/avif'; src.sizes = sizes; src.srcset = ss('avif');
+      const img = new Image();
+      img.onload = img.onerror = () => setTimeout(proxima, 120);
+      pic.append(src, img);
+      caixa.appendChild(pic);          // primeiro entra no <picture>, só então ganha srcset: assim baixa só o formato certo
+      img.fetchPriority = 'low'; img.decoding = 'async'; img.sizes = sizes; img.srcset = ss('webp');
+    };
+    setTimeout(proxima, 800);
+  });
+</script>
+  </body>
+</html>
+
+<style is:global>
+  .top{position:absolute;inset:0 0 auto 0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:var(--s-3);padding-top:max(20px,env(safe-area-inset-top,0px));max-width:1240px}
+  .menu{position:relative}
+  .menu__btn{list-style:none;background:var(--white);color:var(--cobalt)}
+  .menu__btn::-webkit-details-marker{display:none}
+  .menu__panel{position:absolute;top:calc(100% + 10px);left:0;display:grid;gap:2px;min-width:200px;padding:var(--s-2);background:var(--white);color:var(--cobalt);border:2px solid var(--ink);border-radius:var(--r-md);box-shadow:var(--shadow-card);animation:menu-in .3s var(--ease-pop)}
+  .menu__panel a{padding:10px 14px;border-radius:10px;text-decoration:none;font-weight:600}
+  .menu__panel a:hover,.menu__panel a:focus-visible{background:var(--lime);color:var(--ink)}
+  @keyframes menu-in{from{opacity:0;transform:translateY(-8px) scale(.96)}}
+  .foot{padding-block:var(--s-5) max(var(--s-5),env(safe-area-inset-bottom,0px));display:grid;gap:var(--s-3);color:var(--cobalt-soft);font-size:15px}
+  .foot__name{font:900 var(--t-30)/1 var(--font-display);font-stretch:68%;text-transform:uppercase;color:var(--white)}
+  .foot__links{display:flex;flex-wrap:wrap;gap:var(--s-2) var(--s-4)}
+  .foot__links a{text-decoration-thickness:1px;text-underline-offset:4px}
+  .foot__links a:hover{color:var(--lime)}
+</style>

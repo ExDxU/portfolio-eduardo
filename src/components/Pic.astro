@@ -1,0 +1,20 @@
+---
+// Imagem responsiva: AVIF (menor) com WebP de reserva, vários tamanhos e proporção fixa (sem salto de layout).
+import { IMG, srcset, fallback } from '../data/imagens';
+
+interface Props {
+  name: string;
+  sizes: string;
+  alt?: string;
+  class?: string;
+  loading?: 'lazy' | 'eager';
+  fetchpriority?: 'high' | 'low' | 'auto';
+  decoding?: 'async' | 'sync' | 'auto';
+}
+const { name, sizes, alt = '', class: cls, loading, fetchpriority, decoding = 'async' } = Astro.props;
+const d = IMG[name];
+---
+<picture>
+  <source type="image/avif" srcset={srcset(name, 'avif')} sizes={sizes} />
+  <img class={cls} src={fallback(name)} srcset={srcset(name, 'webp')} sizes={sizes} width={d.w} height={d.h} alt={alt} aria-hidden={alt === '' ? 'true' : undefined} loading={loading} fetchpriority={fetchpriority} decoding={decoding} />
+</picture>
