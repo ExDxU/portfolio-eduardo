@@ -6,3 +6,6 @@ assets-recortados
 assets-ml
 assets-fontes
 assets-capas
+
+.vercel
+.env*
