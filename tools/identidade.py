@@ -33,14 +33,16 @@ icone(32, COBALT + (255,), 0.1, 'favicon-32.png', arredondar=8)
 # ---- imagem de compartilhamento ----
 W, H = 1200, 630
 og = Image.new('RGB', (W, H), COBALT)
-retrato = abrir('public/img/portal-cabeca-960.webp')
-altura = 560
+# retrato: a mesma foto da página Sobre mim (rosto completo), recortada em adesivo
+retrato = abrir('public/img/sobre-terno-760.webp')
+altura = 600
 retrato = retrato.resize((int(retrato.width * altura / retrato.height), altura), Image.LANCZOS)
-og.paste(retrato, (W - retrato.width - 30, H - altura + 70), retrato)   # corta um pouco embaixo, como no site
+og.paste(retrato, (W - retrato.width - 40, H - altura + 10), retrato)
 
-nome = abrir('public/img/nome-3d-1100.webp')
-nome = nome.resize((650, int(nome.height * 650 / nome.width)), Image.LANCZOS)
-og.paste(nome, (50, 120), nome)
+# nome: o mesmo letreiro da home (opção B), em duas linhas
+nome = abrir('public/img/nome-tipo-1100.webp')
+nome = nome.resize((780, int(nome.height * 780 / nome.width)), Image.LANCZOS)
+og.alpha_composite(nome.convert('RGBA'), (40, 70)) if False else og.paste(nome, (40, 70), nome)
 
 # fonte do corpo: converte o woff2 do site para uso no Pillow
 f = TTFont(os.path.join(root, 'assets-fontes', 'instrument-sans-latin-wght-normal.woff2'))
@@ -50,14 +52,14 @@ fonte = ImageFont.truetype(ttf, 40)
 try: fonte.set_variation_by_axes([700])
 except Exception: pass
 d = ImageDraw.Draw(og)
-d.text((54, 290), 'Desenvolvedor de software', font=fonte, fill=(255, 255, 255))
-d.text((54, 340), 'e criador de conteúdo sobre IA', font=fonte, fill=(255, 255, 255))
+d.text((54, 330), 'Desenvolvedor de software', font=fonte, fill=(255, 255, 255))
+d.text((54, 378), 'e criador de conteúdo sobre IA', font=fonte, fill=(255, 255, 255))
 pequena = ImageFont.truetype(ttf, 30)
 try: pequena.set_variation_by_axes([700])
 except Exception: pass
 texto = 'Embaixador estudantil do Google 2026'
 bbox = d.textbbox((0, 0), texto, font=pequena)
-px, py = 54, 440
+px, py = 54, 480
 d.rounded_rectangle((px + 4, py + 5, px + (bbox[2] - bbox[0]) + 44, py + 62), 30, fill=INK)
 d.rounded_rectangle((px, py, px + (bbox[2] - bbox[0]) + 40, py + 56), 30, fill=LIME, outline=INK, width=3)
 d.text((px + 20, py + 8), texto, font=pequena, fill=INK)

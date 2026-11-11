@@ -111,7 +111,8 @@ const areas = [
     if (c && (c.saveData || /2g/.test(c.effectiveType || ''))) return;
     const aqui = location.pathname.replace(/\/$/, '') || '/';
     const fila = [];
-    for (const rota in rotas) if (rota !== aqui) fila.push(...rotas[rota]);
+    // o 3º item (opcional) é uma media query: a imagem só é aquecida nas telas em que a página vai usá-la
+    for (const rota in rotas) if (rota !== aqui) fila.push(...rotas[rota].filter((it) => !it[2] || matchMedia(it[2]).matches));
     const caixa = document.createElement('div');
     caixa.setAttribute('aria-hidden', 'true');
     caixa.style.cssText = 'position:absolute;width:0;height:0;overflow:hidden;opacity:0;pointer-events:none';

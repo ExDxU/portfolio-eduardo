@@ -119,3 +119,37 @@ A single long, thick, soft tube shape twisting in an S-curve across the frame, c
 - [ ] `nome-3d.png`
 - [ ] `icones-adesivo.png`
 - [ ] `fundo-forma.png` (opcional)
+
+---
+
+## 8. Nome em tipografia com personalidade (3 opções) → `nome-tipo-A.png`, `-B.png`, `-C.png`
+
+**Por que:** o nome em texto simples ficou sem personalidade e pequeno no celular. Aqui o nome vira uma **imagem de letreiro**, em duas linhas empilhadas (EDUARDO / RIVABEM) para ocupar a largura toda do celular.
+**Use numa conversa nova do Gemini** (não precisa do Bloco de estilo do item 0; o prompt abaixo já traz tudo). Peça as 3 opções de uma vez; se vierem juntas numa imagem só, peça "now output each option as a separate image".
+**Atenção:** o Gemini erra ortografia. Confira se saiu **EDUARDO** e **RIVABEM** (com V, não B). Se errar, diga: *"The text must be exactly: EDUARDO on the first line and RIVABEM on the second. Redo it."*
+
+```
+Design 3 DIFFERENT hand-crafted lettering / typography treatments of my name, for the hero of my personal website. I am a young software developer and AI content creator (Google Student Ambassador 2026), so the mood is playful, retro, confident and a little techy.
+
+THE TEXT (spell it EXACTLY, all caps, no other words, no extra letters):
+Line 1: EDUARDO
+Line 2: RIVABEM
+(Careful: it is R-I-V-A-B-E-M, with a V and then a B.)
+
+LAYOUT FOR ALL 3
+- Two lines stacked, tight leading, both lines justified to the SAME width so the whole name forms one big solid rectangular block, wider than tall (about 4:3). The letters must be HUGE and fill the canvas edge to edge with only a small margin, because this will be shown on a phone screen.
+- Letterforms: ultra-condensed, extra-heavy, tall grotesque (think poster / sports / Slush-style headline type), but each option must have its own distinctive character, custom details and a clever idea, NOT a plain font typed out. Every letter stays perfectly legible.
+
+COLOR PALETTE (use only these): cobalt blue #0131CD, pure white #FFFFFF, neon lime #B9FC01, near-black navy #060814 for outlines and hard shadows.
+BACKGROUND: perfectly flat plain light grey #EDEDED, no gradient, no floor, no texture, no props around the lettering (so I can cut it out). Output each option as its own image, 2048 px wide.
+
+OPTION A — "Die-cut sticker": thick lime letters wrapped by one continuous thick white die-cut sticker outline, a hard offset navy shadow (no blur) under it, and a slight playful rotation and bounce of the baseline between letters. One small touch of personality: the dot/counter of one letter replaced by a tiny winking smiley face.
+
+OPTION B — "Code + AI": flat white letters with a bold navy outline and hard lime offset shadow. Letterforms with small technical details cut into them: the counters of the O, D, A and B shaped like code brackets < > and { }, a tiny four-point AI sparkle star as the cut of one letter, and thin pixel/scanline stripes across the lower part of the letters. Retro-computer feel, but clean and premium.
+
+OPTION C — "Torn paper": letters look cut out of thick cobalt-blue paper with a ripped, irregular white paper edge (like a torn sticker edge), a lime paper layer peeking out from behind each letter, and a hard navy offset shadow. A few small flat shapes (star, lightning bolt) tucked behind the letters. Handmade collage mood.
+
+RULES FOR ALL: no photos, no people, no 3D glossy/inflated balloon look (flat or paper-cut graphic style only), no gradients except tiny highlights, no watermark, no extra text, no slogans.
+```
+
+**Depois de gerar:** salve em `assets-brutos/` e me avise qual escolheu. Eu recorto o fundo, otimizo (WebP/AVIF) e troco no site (home, imagem de compartilhamento e rodapé, se fizer sentido). Se nenhuma agradar, mande o que gostou ou não de cada uma e eu refaço o prompt.

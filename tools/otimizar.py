@@ -37,8 +37,10 @@ def com_sombra(src: Image.Image, largura_max: int):
     return out
 
 
-# nome em 3D
-salvar(abrir('assets-recortados/nome-3d.png'), 'nome-3d', [640, 1100, 1800])
+# nome em tipografia (opção B do Gemini, recortada por tools/recortar_nome.py)
+salvar(abrir('assets-recortados/nome-tipo.png'), 'nome-tipo', [640, 1100, 2000])
+# nome lado a lado para o desktop (tools/recortar_nome_largo.py)
+salvar(abrir('assets-recortados/nome-linha.png'), 'nome-linha', [1000, 1600, 2400])
 
 # retrato (alta resolução) e sombra assada (desfocada: pode ser bem menor)
 head = abrir('assets-recortados/portal-cabeca-hd.png')

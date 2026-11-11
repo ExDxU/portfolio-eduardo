@@ -5,7 +5,8 @@ export const V = '1';
 export interface Img { w: number; h: number; widths: number[] }
 
 export const IMG: Record<string, Img> = {
-  'nome-3d': { w: 1800, h: 279, widths: [640, 1100, 1800] },
+  'nome-tipo': { w: 2000, h: 449, widths: [640, 1100, 2000] },            // celular: duas linhas
+  'nome-linha': { w: 2400, h: 437, widths: [1000, 1600, 2400] },          // desktop: nome e sobrenome lado a lado
   'portal-cabeca': { w: 1456, h: 1696, widths: [640, 960, 1456] },
   'portal-sombra': { w: 928, h: 1082, widths: [558, 928] },
   'obj-sobre': { w: 560, h: 572, widths: [320, 560] },
@@ -35,9 +36,10 @@ export const fallback = (name: string) => `/img/${name}-${IMG[name].widths[IMG[n
 
 /** Imagens de cada página, com o mesmo `sizes` da página. Depois que a página atual carrega, as das outras são baixadas em segundo plano. */
 const HERO = '(min-width:701px) 310px, 110px';
-export const AQUECER: Record<string, [string, string][]> = {
+export const AQUECER: Record<string, [string, string, string?][]> = {
   '/': [
-    ['nome-3d', '(min-width:1700px) 1600px, 84vw'],
+    ['nome-tipo', '98vw', '(max-width:700px)'],
+    ['nome-linha', 'min(1400px,75vw)', '(min-width:701px)'],
     ['portal-cabeca', '(min-width:701px) min(1100px,58vw), min(96vw,640px)'],
     ['portal-sombra', '(min-width:701px) min(1275px,67vw), min(111vw,740px)'],
     ['obj-sobre', HERO], ['obj-servicos', HERO], ['obj-videos', HERO], ['obj-academico', HERO], ['obj-noticias', HERO],

@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Pic from '../components/Pic.astro';
+import { IMG, srcset, fallback } from '../data/imagens';
 
 // Posições em % da caixa do retrato (x: largura, y: altura). A ordem do array é a ordem de empilhamento (o último fica na frente).
 const objetos = [
@@ -18,7 +19,13 @@ const objetos = [
 >
   <section class="hero">
     <h1 class="hero__name">
-      <Pic name="nome-3d" sizes="(min-width:1700px) 1600px, 84vw" alt="Eduardo Rivabem" fetchpriority="high" />
+      <!-- desktop: nome e sobrenome lado a lado; celular: duas linhas. Cada tela baixa só a sua versão. -->
+      <picture>
+        <source media="(min-width:701px)" type="image/avif" srcset={srcset('nome-linha', 'avif')} sizes="min(1400px,75vw)" />
+        <source media="(min-width:701px)" type="image/webp" srcset={srcset('nome-linha', 'webp')} sizes="min(1400px,75vw)" />
+        <source type="image/avif" srcset={srcset('nome-tipo', 'avif')} sizes="98vw" />
+        <img src={fallback('nome-tipo')} srcset={srcset('nome-tipo', 'webp')} sizes="98vw" width={IMG['nome-tipo'].w} height={IMG['nome-tipo'].h} alt="Eduardo Rivabem" fetchpriority="high" decoding="async" />
+      </picture>
     </h1>
 
     <div class="stage" id="stage">
@@ -70,11 +77,14 @@ const objetos = [
   @media (min-width:701px){.hero{padding-bottom:var(--s-5)}}
 
   .js .hero:not(.is-ready) *{animation-play-state:paused!important}
-  .hero__name{width:min(1600px,84vw);margin:0 auto;position:relative;z-index:1}
-  .hero__name img{width:100%;height:auto;filter:drop-shadow(0 10px 18px rgba(0,16,74,.45));animation:name-in 1.85s var(--ease-dramatic) backwards}
+  /* Nome em letreiro (imagem), em duas linhas, quase na largura inteira da tela: bem grande, principalmente no celular. */
+  .hero__name{width:98vw;margin:0 auto;position:relative;z-index:1;animation:name-in 1.85s var(--ease-dramatic) backwards}
+  .hero__name img{width:100%;height:auto;display:block}
+  /* desktop: nome e sobrenome lado a lado, bem grande; o retrato desce para deixar um respiro entre o nome e a cabeça */
+  @media (min-width:701px){.hero__name{width:min(1400px,75vw)}.hero__name img{aspect-ratio:2400/437}.hero .stage{margin-top:calc(var(--W) * 0.03)}}
   @keyframes name-in{from{transform:translateY(40%) scale(.96);opacity:0;clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
 
-  .stage{position:relative;width:var(--W);aspect-ratio:1456/1696;margin:calc(var(--W) * -0.07) auto 0;z-index:2;--px:0;--py:0}
+  .stage{position:relative;width:var(--W);aspect-ratio:1456/1696;margin:calc(var(--W) * -0.04) auto 0;z-index:2;--px:0;--py:0}
   .head{position:relative;display:block;width:100%;height:100%;animation:head-in 1.2s var(--ease-dramatic) .25s backwards}
   .head-shadow{position:absolute;left:-8.03%;top:-8.03%;width:116.06%;height:116.06%;pointer-events:none;animation:head-in 1.2s var(--ease-dramatic) .25s backwards}
   @keyframes head-in{from{transform:translateY(24px);opacity:0}}
