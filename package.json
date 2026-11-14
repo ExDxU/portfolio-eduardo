@@ -8,7 +8,10 @@
     "build": "astro build",
     "preview": "astro preview",
     "nova-noticia": "node scripts/nova-noticia.mjs",
-    "foto-noticia": "node scripts/foto-noticia.mjs"
+    "foto-noticia": "node scripts/foto-noticia.mjs",
+    "foto-projeto": "node scripts/foto-noticia.mjs --pasta=projetos",
+    "foto-certificado": "node scripts/foto-noticia.mjs --pasta=certificados",
+    "novo-projeto": "node scripts/novo-projeto.mjs"
   },
   "dependencies": {
     "astro": "^7.4.10",

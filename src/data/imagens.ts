@@ -14,6 +14,8 @@ export const IMG: Record<string, Img> = {
   'obj-videos': { w: 420, h: 750, widths: [240, 420] },
   'obj-academico': { w: 680, h: 464, widths: [380, 680] },
   'obj-noticias': { w: 680, h: 580, widths: [380, 680] },
+  'obj-projetos': { w: 600, h: 631, widths: [340, 600] },
+  'obj-certificados': { w: 540, h: 716, widths: [300, 540] },
   'ico-foguete': { w: 360, h: 447, widths: [220, 360] },
   'ico-carinha': { w: 360, h: 358, widths: [220, 360] },
   'ico-notebook': { w: 360, h: 367, widths: [220, 360] },
@@ -42,18 +44,17 @@ export const AQUECER: Record<string, [string, string, string?][]> = {
     ['nome-linha', 'min(1400px,75vw)', '(min-width:701px)'],
     ['portal-cabeca', '(min-width:701px) min(1100px,58vw), min(96vw,640px)'],
     ['portal-sombra', '(min-width:701px) min(1275px,67vw), min(111vw,740px)'],
-    ['obj-sobre', HERO], ['obj-servicos', HERO], ['obj-videos', HERO], ['obj-academico', HERO], ['obj-noticias', HERO],
+    ['obj-projetos', HERO], ['obj-sobre', HERO], ['obj-videos', HERO], ['obj-academico', HERO], ['obj-noticias', HERO], ['obj-certificados', HERO],
   ],
-  '/servicos': [
-    ['obj-servicos', '(max-width:820px) 55vw, 340px'], ['ico-estrela', '90px'], ['ico-carinha', '90px'],
-    ['ico-notebook', '100px'], ['ico-lupa', '100px'], ['ico-foguete', '100px'], ['ico-celular', '100px'], ['ico-megafone', '100px'],
+  '/projetos': [
+    ['obj-projetos', '(max-width:820px) 55vw, 340px'], ['ico-estrela', '80px'],
   ],
   '/videos': [
     ['obj-videos', '(max-width:820px) 40vw, 240px'], ['ico-estrela', '80px'], ['ico-carinha', '80px'],
     ['capa-dia', '(max-width:820px) 45vw, 300px'], ['capa-deep-research', '(max-width:820px) 45vw, 300px'], ['capa-navier-stokes', '(max-width:820px) 45vw, 300px'],
   ],
   '/academico': [
-    ['obj-academico', '(max-width:820px) 60vw, 360px'], ['ico-estrela', '180px'],
+    ['obj-academico', '(max-width:820px) 60vw, 360px'], ['ico-estrela', '180px'], ['obj-certificados', '(max-width:820px) 34vw, 200px'],
   ],
   '/noticias': [
     ['obj-noticias', '(max-width:820px) 55vw, 340px'], ['ico-estrela', '80px'],

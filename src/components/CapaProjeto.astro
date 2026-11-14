@@ -1,0 +1,45 @@
+---
+// Capa de um projeto: a imagem (print) quando existe; senão, uma capa tipográfica na cor do projeto.
+// A mesma capa aparece no cartão e no topo da janela do projeto.
+import FotoNoticia from './FotoNoticia.astro';
+
+interface Props {
+  d: { titulo: string; tipo: string; cor: string; sigla?: string; imagem?: string; imagemW?: number; imagemH?: number; imagemAlt?: string; imagemFoco?: string };
+  sizes: string;
+  loading?: 'lazy' | 'eager';
+}
+const { d, sizes, loading = 'lazy' } = Astro.props;
+const temImagem = d.imagem && d.imagemW && d.imagemH;
+---
+{temImagem ? (
+  <span class="capa capa--img" style={d.imagemFoco ? `--foco:${d.imagemFoco}` : undefined}>
+    <FotoNoticia pasta="projetos" foto={d.imagem!} w={d.imagemW!} h={d.imagemH!} alt={d.imagemAlt ?? ''} sizes={sizes} loading={loading} />
+  </span>
+) : (
+  <span class={`capa capa--${d.cor}`} aria-hidden="true">
+    <span class="capa__barra"><i></i><i></i><i></i></span>
+    <span class="capa__sigla">{d.sigla ?? d.titulo}</span>
+    <span class="capa__tipo">{d.tipo}</span>
+  </span>
+)}
+
+<style is:global>
+  .capa{position:relative;display:block;aspect-ratio:16/9;overflow:hidden;border-bottom:2px solid var(--ink);background:var(--mist)}
+  .capa--img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:var(--foco,center top)}
+  /* na janela do projeto a imagem aparece inteira, sem corte */
+  .pj-modal .capa--img{aspect-ratio:auto}
+  .pj-modal .capa--img img{position:static;height:auto;object-fit:contain}
+  .capa--lime{background:var(--lime);color:var(--ink)}
+  .capa--white{background:var(--white);color:var(--cobalt)}
+  .capa--mist{background:var(--mist);color:var(--cobalt)}
+  .capa--cobalt{background:var(--cobalt);color:var(--lime)}
+  /* barra de janela, como no objeto 3D da área */
+  .capa__barra{position:absolute;left:0;right:0;top:0;height:13%;min-height:22px;display:flex;align-items:center;gap:6px;padding-inline:4%;border-bottom:2px solid var(--ink);background:rgba(6,8,20,.08)}
+  .capa--cobalt .capa__barra{background:rgba(255,255,255,.14)}
+  .capa__barra i{width:10px;height:10px;border-radius:50%;border:2px solid var(--ink);background:var(--cobalt)}
+  .capa__barra i:nth-child(2){background:var(--lime)}
+  .capa__barra i:nth-child(3){background:var(--white)}
+  .capa__sigla{position:absolute;left:5%;bottom:6%;font:900 italic clamp(3.2rem,27cqw,12rem)/.8 var(--font-display);font-stretch:62%;text-transform:uppercase;letter-spacing:-.01em}
+  .capa__tipo{position:absolute;right:4%;top:22%;background:var(--ink);color:var(--white);border-radius:var(--r-pill);padding:5px 11px;font:700 11px/1 var(--font-body);letter-spacing:.05em;text-transform:uppercase}
+  .capa{container-type:inline-size}
+</style>

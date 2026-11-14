@@ -5,7 +5,7 @@ import { join } from 'node:path';
 
 // Só URLs finais (sem redirecionamento) e com `lastmod` real: a data da notícia, ou a da última edição do arquivo da página.
 // Sem `site` (domínio) em astro.config.mjs, o sitemap sai vazio de propósito: endereços relativos não valem.
-const PAGINAS = ['', 'sobre', 'servicos', 'videos', 'academico', 'noticias'];
+const PAGINAS = ['', 'projetos', 'sobre', 'academico', 'videos', 'noticias'];
 
 const dia = (d: Date) => d.toISOString().slice(0, 10);
 

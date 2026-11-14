@@ -56,7 +56,8 @@ for hw in (480, 800):
 
 # objetos 3D (com sombra sólida assada)
 objs = {'obj-sobre': ([320, 560]), 'obj-servicos': ([320, 560]), 'obj-videos': ([240, 420]),
-        'obj-academico': ([380, 680]), 'obj-noticias': ([380, 680])}
+        'obj-academico': ([380, 680]), 'obj-noticias': ([380, 680]),
+        'obj-projetos': ([340, 600]), 'obj-certificados': ([300, 540])}   # estes dois: tools/recortar_objeto_branco.py
 for nome, ws in objs.items():
     big = com_sombra(abrir(f'assets-ml/{nome}.png'), ws[-1])
     salvar(big, nome, ws)

@@ -52,7 +52,15 @@ Links e capas [pendente].
 ## Notícias
 Primeiras notícias [pendente]. Candidatas naturais: "Embaixador estudantil do Google 2026", "Concluí o CS50 de Harvard", "Entrei na LIA e na LICS".
 
-## Serviços
+## Serviços (fora do site desde 2026-11-13; conteúdo guardado para outra ocasião)
 - Landing pages de alta conversão, SEO integrado, atendimento global.
 - Incluso, Como funciona e Perguntas frequentes: rascunho na Fase 4, para aprovação.
 - Projetos de clientes: [pendente]. Por ora, o próprio site é o case.
+
+## Projetos (2026-11-13)
+Textos em `src/content/projetos/`, escritos a partir dos READMEs do Eduardo (Mini-RAG, Habit-Tracker, radar) e da spec do Leads. Ordem: Mini RAG (destaque), Radar, Leads, Habit Tracker. Radar e Leads têm código privado: sem link e sem números internos. Eduardo confirmou em 2026-11-13 que o Radar já usa a API do Search Console (o README do repositório está desatualizado nesse ponto).
+
+## Certificados (2026-11-13)
+CS50x, CS50P (Harvard) e Hackathon do QuintoAndar, em `src/content/certificados/`. Imagens geradas dos PDFs enviados pelo Eduardo em 2026-11-13 (originais em `referencias/certificados/`); CS50 com link oficial de verificação.
+
+Prints dos projetos em `referencias/projetos/`. O do Radar foi recortado para mostrar só métricas e gráficos, sem nome, endereço do cliente nem e-mail. O Habit Tracker foi feito pelo Eduardo sozinho, da ideia ao código; os demais, com auxílio de ferramentas de IA.

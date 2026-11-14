@@ -5,16 +5,20 @@ import { IMG, srcset, fallback } from '../data/imagens';
 
 // Posições em % da caixa do retrato (x: largura, y: altura). A ordem do array é a ordem de empilhamento (o último fica na frente).
 const objetos = [
-  { href: '/servicos', label: 'Serviços', blurb: 'Landing pages rápidas, com SEO desde o primeiro dia.', name: 'obj-servicos', x: 34, y: -5, width: 18, rot: 9, depth: 1.5, delay: 0.6 },
-  { href: '/videos', label: 'Vídeos', blurb: 'IA explicada de um jeito simples, direto do Instagram.', name: 'obj-videos', x: 51, y: -2, width: 11, rot: -5, depth: 2.0, delay: 0.7 },
-  { href: '/sobre', label: 'Sobre mim', blurb: 'Minha história, meus gostos e o que me move.', name: 'obj-sobre', x: 22, y: -1, width: 20, rot: -10, depth: 1.0, delay: 0.5 },
-  { href: '/academico', label: 'Acadêmico', blurb: 'Olimpíadas, Google, Harvard e o que vem pela frente.', name: 'obj-academico', x: 40, y: 3, width: 22, rot: 8, depth: 1.5, delay: 0.8 },
-  { href: '/noticias', label: 'Notícias', blurb: 'Eventos, conquistas e novidades.', name: 'obj-noticias', x: 56, y: 2, width: 19, rot: -8, depth: 1.0, delay: 0.9 },
+  { href: '/academico#certificados', label: 'Certificados', blurb: 'CS50 de Harvard e o Hackathon do QuintoAndar.', name: 'obj-certificados', x: 23.5, y: -7, width: 14.5, rot: -16, depth: 1.5, delay: 0.6 },
+  { href: '/videos', label: 'Vídeos', blurb: 'IA explicada de um jeito simples, direto do Instagram.', name: 'obj-videos', x: 68, y: -4, width: 9, rot: 12, depth: 2.0, delay: 0.7 },
+  { href: '/noticias', label: 'Notícias', blurb: 'Eventos, conquistas e novidades.', name: 'obj-noticias', x: 62, y: 2.5, width: 17, rot: 9, depth: 1.0, delay: 0.9 },
+  { href: '/sobre', label: 'Sobre mim', blurb: 'Minha história, meus gostos e o que me move.', name: 'obj-sobre', x: 16, y: 0, width: 17, rot: -10, depth: 1.0, delay: 0.5 },
+  { href: '/academico', label: 'Acadêmico', blurb: 'Olimpíadas, Google, Harvard e o que vem pela frente.', name: 'obj-academico', x: 51, y: -4, width: 18, rot: 7, depth: 1.5, delay: 0.8 },
+  { href: '/projetos', label: 'Projetos', blurb: 'IA, ferramentas e aplicações web que eu construí.', name: 'obj-projetos', x: 36, y: -4, width: 20, rot: -4, depth: 1.8, delay: 1.0 },
 ];
+// Nos cartões e nas pílulas do celular, Projetos vem primeiro (é o que recrutadores procuram).
+const ordemCartoes = ['/projetos', '/sobre', '/academico', '/academico#certificados', '/videos', '/noticias'];
+const cartoes = ordemCartoes.map((h) => objetos.find((o) => o.href === h)!);
 ---
 <Base
   title="Eduardo Rivabem | Desenvolvedor, estudante e criador de conteúdo sobre IA"
-  description="Eduardo Rivabem: desenvolvedor, embaixador estudantil do Google 2026 e criador de conteúdo sobre IA. Conheça minha história, serviços, vídeos, trajetória e notícias."
+  description="Eduardo Rivabem: desenvolvedor, embaixador estudantil do Google 2026 e criador de conteúdo sobre IA. Veja meus projetos, minha história, trajetória acadêmica, vídeos e notícias."
   preload={{ name: 'portal-cabeca', sizes: '(min-width:701px) min(1100px,58vw), min(96vw,640px)' }}
 >
   <section class="hero">
@@ -47,14 +51,14 @@ const objetos = [
     </div>
 
     <ul class="areas" aria-label="Ir para uma área">
-      {objetos.map((o) => <li><a href={o.href}>{o.label}</a></li>)}
+      {cartoes.map((o) => <li><a href={o.href}>{o.label}</a></li>)}
     </ul>
   </section>
 
   <section class="choose wrap">
     <h2 class="t2">Quem sou eu?<em>Escolha por onde começar.</em></h2>
     <ul class="cards">
-      {objetos.map((o, i) => (
+      {cartoes.map((o, i) => (
         <li class={`card card--${i % 3}`}>
           <a href={o.href}>
             <Pic name={o.name} sizes="110px" loading="lazy" />
@@ -101,6 +105,7 @@ const objetos = [
   .obj-wrap:nth-child(3) .obj__img{animation-delay:-1.6s}
   .obj-wrap:nth-child(4) .obj__img{animation-delay:-2.4s}
   .obj-wrap:nth-child(5) .obj__img{animation-delay:-3.2s}
+  .obj-wrap:nth-child(6) .obj__img{animation-delay:-2s}
   @keyframes bob{to{transform:translateY(-5px)}}
   .areas{display:none}
 

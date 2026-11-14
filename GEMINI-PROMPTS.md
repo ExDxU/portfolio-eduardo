@@ -153,3 +153,21 @@ RULES FOR ALL: no photos, no people, no 3D glossy/inflated balloon look (flat or
 ```
 
 **Depois de gerar:** salve em `assets-brutos/` e me avise qual escolheu. Eu recorto o fundo, otimizo (WebP/AVIF) e troco no site (home, imagem de compartilhamento e rodapé, se fizer sentido). Se nenhuma agradar, mande o que gostou ou não de cada uma e eu refaço o prompt.
+
+---
+
+## 9. Objetos das novas áreas: Projetos e Certificados
+
+**Como usar:** de preferência na mesma conversa dos objetos do item 2. Numa conversa nova, cole primeiro o **Bloco de estilo** (item 0) e anexe um objeto já pronto (por exemplo `assets-brutos/obj-sobre.jfif`) dizendo *"match the exact style, lighting and materials of the attached object"*. Gere 2 a 4 variações de cada e escolha. Salve em `assets-brutos/` com o nome indicado.
+
+### 9.1 Projetos → `obj-projetos.png`
+```
+A single glossy 3D retro toy browser window, chunky and slightly inflated, white frame with three small round buttons on the top bar (cobalt blue #0131CD, lime green #B9FC01, white). Inside the window: a cobalt blue #0131CD screen with a big lime green #B9FC01 code symbol made of the two angle brackets and a slash, like "</>", plus two short white abstract bars below it (no readable text). A small 3D lime green #B9FC01 gear peeks out from behind the bottom-right corner of the window. Three-quarter view, slightly tilted. Plain flat light grey #EDEDED background.
+```
+
+### 9.2 Certificados → `obj-certificados.png`
+```
+A single glossy 3D rolled certificate scroll, soft and slightly puffy, white paper partly unrolled with a few thin cobalt blue #0131CD abstract lines on it (no readable text), tied with a lime green #B9FC01 ribbon. Attached to the scroll: a round award rosette seal in cobalt blue #0131CD with a white star in the center and two short lime green #B9FC01 ribbon tails. Toy-like, inflated, soft edges. Three-quarter view, slightly tilted. Plain flat light grey #EDEDED background.
+```
+
+> Teste de consistência: *"Now show these two objects next to the smiley ball and the rocket from before, same style"*. Serve só para conferir se combinam; no site eu uso as imagens separadas.

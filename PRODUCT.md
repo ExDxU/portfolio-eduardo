@@ -26,8 +26,8 @@ Desenvolvedor de software focado em landing pages de alta conversão, com SEO in
 Acesso principalmente pelo celular (link enviado no WhatsApp/Instagram) e no desktop durante entrevistas. Primeira impressão em poucos segundos.
 
 ## Capabilities and Constraints
-- Seis áreas: home-portal, Sobre mim, Serviços, Vídeos, Acadêmico, Notícias.
-- WhatsApp (19 99536-2767) **somente** em Serviços. E-mail: edurivaserrano@gmail.com. Instagram: @DevEduardo.
+- Áreas (desde 2026-11-13, foco em currículo): home-portal, Projetos (destaque), Sobre mim, Acadêmico (com Certificados), Vídeos, Notícias. Serviços saiu do site e está guardado em `_guardado/`.
+- WhatsApp: fora do site enquanto Serviços estiver guardado (antes aparecia só lá). E-mail: edurivaserrano@gmail.com. Instagram: @DevEduardo.
 - Vídeos: capa + descrição curta + link para o Instagram; sem embed.
 - Domínio ainda não registrado (preferência: nome próprio, com www).
 - Curadoria do conteúdo de cada área ainda a fazer, com ajuda do Claude.

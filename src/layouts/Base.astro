@@ -30,20 +30,14 @@ const jsonld = site ? {
       address: { '@type': 'PostalAddress', addressLocality: 'Limeira', addressRegion: 'SP', addressCountry: 'BR' },
       sameAs: ['https://www.linkedin.com/in/eduardo-rivabem-2164a53b5/', 'https://github.com/ExDxU', 'https://www.instagram.com/devEduardo'],
     },
-    {
-      '@type': 'ProfessionalService', '@id': `${base}/#servico`, name: 'Eduardo Rivabem: landing pages', url: `${base}/servicos`,
-      description: 'Criação de landing pages rápidas, com SEO integrado, para clientes em qualquer lugar.',
-      founder: { '@id': `${base}/#pessoa` }, areaServed: 'Brasil e exterior', image: ogImage,
-      address: { '@type': 'PostalAddress', addressLocality: 'Limeira', addressRegion: 'SP', addressCountry: 'BR' },
-    },
     ...graph,
   ],
 } : undefined;
 const areas = [
+  { href: '/projetos', label: 'Projetos' },
   { href: '/sobre', label: 'Sobre mim' },
-  { href: '/servicos', label: 'Serviços' },
-  { href: '/videos', label: 'Vídeos' },
   { href: '/academico', label: 'Acadêmico' },
+  { href: '/videos', label: 'Vídeos' },
   { href: '/noticias', label: 'Notícias' },
 ];
 ---

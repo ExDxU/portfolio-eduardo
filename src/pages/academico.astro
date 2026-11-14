@@ -1,6 +1,11 @@
 ---
+import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import Pic from '../components/Pic.astro';
+import FotoNoticia from '../components/FotoNoticia.astro';
+
+// Certificados: um arquivo .md por certificado em src/content/certificados/. Imagem: `npm run foto-certificado -- arquivo.png nome`.
+const certificados = (await getCollection('certificados', ({ data }) => !data.rascunho)).sort((a, b) => a.data.ordem - b.data.ordem);
 
 // Linha do tempo. Para adicionar uma conquista: copie um bloco, em ordem. `quando` é opcional (ex.: '2026'); sem ele nada é mostrado.
 const grupos = [
@@ -35,7 +40,7 @@ const grupos = [
 ---
 <Base
   title="Trajetória acadêmica: olimpíadas, CS50 e Google | Eduardo Rivabem"
-  description="Olimpíadas de matemática e geografia, aprovação em quatro cursos, CS50 de Harvard, ligas de cibersegurança e IA e embaixador estudantil do Google 2026."
+  description="Olimpíadas de matemática e geografia, aprovação em quatro cursos, certificados do CS50 de Harvard, ligas de cibersegurança e IA e embaixador do Google 2026."
   preload={{ name: 'obj-academico', sizes: '(max-width:820px) 60vw, 360px' }}
 >
   <!-- ABERTURA -->
@@ -47,6 +52,7 @@ const grupos = [
         <p class="ac-lead">Olimpíadas, aprovações em quatro cursos, o CS50 de Harvard, as ligas da faculdade e o Google. E o que vem pela frente.</p>
         <p class="ac-cta">
           <a class="btn btn--big" href="#linha">Ver a linha do tempo</a>
+          <a class="btn btn--light btn--big" href="#certificados">Certificados</a>
           <a class="btn btn--light btn--big" href="#futuro">Para onde eu vou</a>
         </p>
       </div>
@@ -94,11 +100,44 @@ const grupos = [
     </div>
   </section>
 
+  <!-- CERTIFICADOS -->
+  <section class="frame frame--inv ac-sec ac-certs" id="certificados" aria-labelledby="certT">
+    <div class="wrap">
+      <div class="ac-certs__head">
+        <h2 class="t2" id="certT">Certificados<em>cursos e hackathon</em></h2>
+        <Pic class="ac-certs__obj" name="obj-certificados" sizes="(max-width:820px) 34vw, 200px" loading="lazy" />
+      </div>
+      <ul class="certs">
+        {certificados.map((c) => {
+          const d = c.data;
+          const temImagem = d.imagem && d.imagemW && d.imagemH;
+          return (
+            <li class="cert">
+              {temImagem ? (
+                <button class="cert__img" type="button" data-cert={d.imagem} data-w={d.imagemW} data-h={d.imagemH} data-t={d.titulo} aria-label={`Ampliar o certificado: ${d.titulo}`}>
+                  <FotoNoticia pasta="certificados" foto={d.imagem!} w={d.imagemW!} h={d.imagemH!} alt={d.imagemAlt ?? `Certificado: ${d.titulo}`} sizes="(max-width:820px) 92vw, 360px" />
+                  <span class="cert__zoom" aria-hidden="true">Ampliar</span>
+                </button>
+              ) : (
+                <span class="cert__selo" aria-hidden="true">★</span>
+              )}
+              <div class="cert__b">
+                <p class="cert__inst">{d.instituicao}{d.quando && <span> · {d.quando}</span>}</p>
+                <h3>{d.titulo}</h3>
+                {d.link && <a class="cert__link" href={d.link} target="_blank" rel="noopener">Verificar certificado ↗</a>}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </section>
+
   <!-- FUTURO -->
-  <section class="frame frame--inv ac-sec" id="futuro">
+  <section class="frame ac-sec" id="futuro">
     <div class="wrap">
       <h2 class="t2">Para onde eu vou<em>engenharia de IA</em></h2>
-      <p class="ac-lead ac-lead--dark ac-goal">Estou no início da carreira e tenho um grande interesse em me tornar engenheiro de inteligência artificial. Meus estudos hoje miram em Python e em suas bibliotecas, para construir base em machine learning e ciência de dados.</p>
+      <p class="ac-lead ac-goal">Estou no início da carreira e tenho um grande interesse em me tornar engenheiro de inteligência artificial. Meus estudos hoje miram em Python e em suas bibliotecas, para construir base em machine learning e ciência de dados.</p>
       <ul class="ac-chips" aria-label="Foco de estudo atual">
         <li>Python</li><li>Machine learning</li><li>Ciência de dados</li>
       </ul>
@@ -106,18 +145,25 @@ const grupos = [
   </section>
 
   <!-- FECHO -->
-  <section class="frame ac-sec ac-end">
+  <section class="frame frame--inv ac-sec ac-end">
     <div class="wrap">
       <h2 class="t2">Quer saber mais<em>sobre mim?</em></h2>
-      <p class="ac-lead">Você me encontra no LinkedIn e no GitHub, ou pode me escrever.</p>
+      <p class="ac-lead ac-lead--dark">Você me encontra no LinkedIn e no GitHub, ou pode me escrever.</p>
       <p class="ac-cta ac-cta--c">
         <a class="btn btn--big" href="https://www.linkedin.com/in/eduardo-rivabem-2164a53b5/" target="_blank" rel="noopener">Ver meu LinkedIn</a>
         <a class="btn btn--light btn--big" href="https://github.com/ExDxU" target="_blank" rel="noopener">GitHub</a>
         <a class="btn btn--light btn--big" href="mailto:edurivaserrano@gmail.com">E-mail</a>
       </p>
-      <p class="ac-note">Currículo em PDF: em breve, aqui.</p>
+      <p class="ac-note ac-lead--dark">Currículo em PDF: em breve, aqui.</p>
     </div>
   </section>
+  <dialog class="cert-view" id="certView" aria-labelledby="certViewT" data-lenis-prevent>
+    <div class="cert-view__in">
+      <button class="cert-view__x" type="button" id="certViewX" aria-label="Fechar">✕</button>
+      <p class="cert-view__t" id="certViewT"></p>
+      <div class="cert-view__frame" id="certViewFrame"></div>
+    </div>
+  </dialog>
 </Base>
 
 <style is:global>
@@ -179,6 +225,36 @@ const grupos = [
   .ac-chips li{padding:10px 18px;border-radius:var(--r-pill);border:2px solid var(--ink);background:var(--lime);color:var(--ink);font:700 15px/1 var(--font-body);box-shadow:0 3px 0 var(--ink)}
   .ac-chips li:nth-child(2){background:var(--white)}.ac-chips li:nth-child(3){background:var(--mist)}
 
+  /* certificados */
+  #certificados,#linha,#futuro{scroll-margin-top:16px}
+  .ac-certs__head{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--s-4);margin-bottom:var(--s-5)}
+  .ac-certs__head .t2{margin-bottom:0}
+  .ac-certs__obj{width:clamp(110px,16vw,200px);height:auto;rotate:8deg;margin-block:-24px -8px;flex:none}
+  .certs{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:var(--s-4)}
+  .cert{display:grid;align-content:start;border:2px solid var(--ink);border-radius:var(--r-md);background:var(--white);color:var(--ink);box-shadow:var(--shadow-card);overflow:hidden}
+  .cert:nth-child(3n+1){background:var(--lime)}.cert:nth-child(3n){background:var(--mist)}
+  .cert__img{position:relative;display:block;padding:0;border:0;border-bottom:2px solid var(--ink);background:var(--white);cursor:zoom-in;aspect-ratio:13/10;overflow:hidden}
+  .cert__img img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;transition:transform .5s var(--ease-pop)}
+  .cert__img:hover img{transform:scale(1.04)}
+  .cert__img:focus-visible{outline:3px solid var(--cobalt);outline-offset:-5px}
+  .cert__zoom{position:absolute;right:10px;bottom:10px;background:var(--ink);color:var(--white);border-radius:var(--r-pill);padding:6px 11px;font:700 11px/1 var(--font-body);letter-spacing:.05em;text-transform:uppercase}
+  .cert__selo{display:grid;place-items:center;width:52px;height:52px;margin:var(--s-4) var(--s-4) 0;border-radius:50%;background:var(--cobalt);color:var(--white);border:2.5px solid var(--ink);box-shadow:0 3px 0 var(--ink);font-size:24px;line-height:1}
+  .cert__b{padding:var(--s-3) var(--s-4) var(--s-4);display:grid;gap:6px}
+  .cert__inst{margin:0;font:700 12px/1.2 var(--font-body);letter-spacing:.05em;text-transform:uppercase;color:var(--cobalt)}
+  .cert h3{font:600 var(--t-22)/1.15 var(--font-body);letter-spacing:-.02em;margin:0;text-wrap:balance}
+  .cert__link{justify-self:start;margin-top:4px;font:700 14px/1.2 var(--font-body);color:var(--cobalt);text-underline-offset:3px}
+  html:has(.cert-view[open]){overflow:hidden}
+  .cert-view{border:0;padding:0;background:transparent;max-width:none;max-height:none;margin:auto;overflow:visible}
+  .cert-view::backdrop{background:rgba(0,16,74,.86)}
+  .cert-view[open]{animation:cv-in .45s var(--ease-spring)}
+  @keyframes cv-in{from{transform:translateY(30px) scale(.94);opacity:0}}
+  .cert-view__in{position:relative;width:min(1000px,94vw);background:var(--white);color:var(--ink);border:2px solid var(--ink);border-radius:var(--r-lg);box-shadow:var(--shadow-card);padding:var(--s-3);display:grid;gap:var(--s-3)}
+  .cert-view__t{margin:0;padding:4px 56px 0 6px;font:600 var(--t-17)/1.2 var(--font-body);color:var(--cobalt)}
+  .cert-view__x{position:absolute;right:10px;top:10px;width:44px;height:44px;border-radius:50%;border:2px solid var(--ink);background:var(--lime);color:var(--ink);font:900 16px/1 var(--font-body);cursor:pointer;box-shadow:0 3px 0 var(--ink)}
+  .cert-view__frame img{display:block;width:100%;height:auto;max-height:78vh;object-fit:contain;border-radius:var(--r-md);background:var(--mist)}
+  @media (max-width:820px){.ac-certs__obj{margin-block:-10px 0}}
+  @media (prefers-reduced-motion:reduce){.cert-view[open]{animation:none}.cert__img img{transition:none}}
+
   .ac-end{text-align:center}
   .ac-end .t2,.ac-end .ac-lead{margin-inline:auto}
 
@@ -209,4 +285,23 @@ const grupos = [
   } else {
     eventos.forEach((el) => el.classList.add('is-in'));
   }
+
+  // Certificados: clicar na miniatura abre a imagem grande.
+  const cv = document.getElementById('certView') as HTMLDialogElement;
+  const cvFrame = document.getElementById('certViewFrame') as HTMLElement;
+  const cvT = document.getElementById('certViewT') as HTMLElement;
+  document.querySelectorAll<HTMLButtonElement>('[data-cert]').forEach((b) => b.addEventListener('click', () => {
+    if (typeof cv.showModal !== 'function') return;
+    const nome = b.dataset.cert!, w = Number(b.dataset.w), h = Number(b.dataset.h);
+    const maior = w >= 1200 ? 1200 : w;
+    const pic = document.createElement('picture');
+    const src = document.createElement('source'); src.type = 'image/avif'; src.srcset = `/img/certificados/${nome}-${maior}.avif`;
+    const img = new Image(); img.width = w; img.height = h; img.alt = `Certificado: ${b.dataset.t}`; img.src = `/img/certificados/${nome}-${maior}.webp`;
+    pic.append(src, img);
+    cvFrame.replaceChildren(pic);
+    cvT.textContent = b.dataset.t ?? '';
+    cv.showModal();
+  }));
+  document.getElementById('certViewX')!.addEventListener('click', () => cv.close());
+  cv.addEventListener('click', (e) => { if (e.target === cv) cv.close(); });
 </script>

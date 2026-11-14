@@ -1,12 +1,13 @@
 ---
-// Foto de notícia gerada por `npm run foto-noticia`: AVIF e WebP em 640 e 1200 px.
-interface Props { foto: string; w: number; h: number; alt?: string; sizes: string; class?: string; loading?: 'lazy' | 'eager'; fetchpriority?: 'high' | 'low' | 'auto'; style?: string }
-const { foto, w, h, alt = '', sizes, class: cls, loading = 'lazy', fetchpriority, style } = Astro.props;
-const larg = w >= 1200 ? [640, 1200] : [w];
-const ss = (ext: string) => larg.map((x) => `/img/noticias/${foto}-${x}.${ext} ${x}w`).join(', ');
+// Foto gerada por `npm run foto-noticia` (ou foto-projeto / foto-certificado): AVIF e WebP em 640 e 1200 px.
+// `pasta` é a subpasta de /img: noticias (padrão), projetos ou certificados.
+interface Props { foto: string; w: number; h: number; alt?: string; sizes: string; class?: string; loading?: 'lazy' | 'eager'; fetchpriority?: 'high' | 'low' | 'auto'; style?: string; pasta?: string }
+const { foto, w, h, alt = '', sizes, class: cls, loading = 'lazy', fetchpriority, style, pasta = 'noticias' } = Astro.props;
+const larg = w > 640 ? [640, w] : [w];   // o script gera 640 e a maior (1200, ou a largura original se for menor)
+const ss = (ext: string) => larg.map((x) => `/img/${pasta}/${foto}-${x}.${ext} ${x}w`).join(', ');
 const maior = larg[larg.length - 1];
 ---
 <picture>
   <source type="image/avif" srcset={ss('avif')} sizes={sizes} />
-  <img class={cls} src={`/img/noticias/${foto}-${maior}.webp`} srcset={ss('webp')} sizes={sizes} width={w} height={h} alt={alt} loading={loading} fetchpriority={fetchpriority} decoding="async" style={style} />
+  <img class={cls} src={`/img/${pasta}/${foto}-${maior}.webp`} srcset={ss('webp')} sizes={sizes} width={w} height={h} alt={alt} loading={loading} fetchpriority={fetchpriority} decoding="async" style={style} />
 </picture>
