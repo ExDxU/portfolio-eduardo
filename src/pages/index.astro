@@ -5,12 +5,12 @@ import { IMG, srcset, fallback } from '../data/imagens';
 
 // Posições em % da caixa do retrato (x: largura, y: altura). A ordem do array é a ordem de empilhamento (o último fica na frente).
 const objetos = [
-  { href: '/academico#certificados', label: 'Certificados', blurb: 'CS50 de Harvard e o Hackathon do QuintoAndar.', name: 'obj-certificados', x: 23.5, y: -7, width: 14.5, rot: -16, depth: 1.5, delay: 0.6 },
-  { href: '/videos', label: 'Vídeos', blurb: 'IA explicada de um jeito simples, direto do Instagram.', name: 'obj-videos', x: 68, y: -4, width: 9, rot: 12, depth: 2.0, delay: 0.7 },
-  { href: '/noticias', label: 'Notícias', blurb: 'Eventos, conquistas e novidades.', name: 'obj-noticias', x: 62, y: 2.5, width: 17, rot: 9, depth: 1.0, delay: 0.9 },
-  { href: '/sobre', label: 'Sobre mim', blurb: 'Minha história, meus gostos e o que me move.', name: 'obj-sobre', x: 16, y: 0, width: 17, rot: -10, depth: 1.0, delay: 0.5 },
-  { href: '/academico', label: 'Acadêmico', blurb: 'Olimpíadas, Google, Harvard e o que vem pela frente.', name: 'obj-academico', x: 51, y: -4, width: 18, rot: 7, depth: 1.5, delay: 0.8 },
-  { href: '/projetos', label: 'Projetos', blurb: 'IA, ferramentas e aplicações web que eu construí.', name: 'obj-projetos', x: 36, y: -4, width: 20, rot: -4, depth: 1.8, delay: 1.0 },
+  { href: '/academico#certificados', label: 'Certificados', blurb: 'CS50 de Harvard e o Hackathon do QuintoAndar.', name: 'obj-certificados', x: 27, y: -7, width: 14.5, rot: -14, depth: 1.5, delay: 0.6 },
+  { href: '/videos', label: 'Vídeos', blurb: 'IA explicada de um jeito simples, direto do Instagram.', name: 'obj-videos', x: 44.5, y: -10.5, width: 10, rot: 6, depth: 2.0, delay: 0.7 },
+  { href: '/noticias', label: 'Notícias', blurb: 'Eventos, conquistas e novidades.', name: 'obj-noticias', x: 55.5, y: 1, width: 25.5, rot: 3, depth: 1.0, delay: 0.9 },
+  { href: '/sobre', label: 'Sobre mim', blurb: 'Minha história, meus gostos e o que me move.', name: 'obj-sobre', x: 19.5, y: -0.5, width: 20, rot: -8, depth: 1.0, delay: 0.5 },
+  { href: '/academico', label: 'Acadêmico', blurb: 'Olimpíadas, Google, Harvard e o que vem pela frente.', name: 'obj-academico', x: 52.5, y: -5.5, width: 19, rot: 8, depth: 1.5, delay: 0.8 },
+  { href: '/projetos', label: 'Projetos', blurb: 'IA, ferramentas e aplicações web que eu construí.', name: 'obj-projetos', x: 37.5, y: -2.5, width: 22.5, rot: -3, depth: 1.8, delay: 1.0 },
 ];
 // Nos cartões e nas pílulas do celular, Projetos vem primeiro (é o que recrutadores procuram).
 const ordemCartoes = ['/projetos', '/sobre', '/academico', '/academico#certificados', '/videos', '/noticias'];
@@ -85,7 +85,7 @@ const cartoes = ordemCartoes.map((h) => objetos.find((o) => o.href === h)!);
   .hero__name{width:98vw;margin:0 auto;position:relative;z-index:1;animation:name-in 1.85s var(--ease-dramatic) backwards}
   .hero__name img{width:100%;height:auto;display:block}
   /* desktop: nome e sobrenome lado a lado, bem grande; o retrato desce para deixar um respiro entre o nome e a cabeça */
-  @media (min-width:701px){.hero__name{width:min(1400px,75vw)}.hero__name img{aspect-ratio:2400/437}.hero .stage{margin-top:calc(var(--W) * 0.03)}}
+  @media (min-width:701px){.hero__name{width:min(1400px,75vw)}.hero__name img{aspect-ratio:2400/437}.hero .stage{margin-top:calc(var(--W) * 0.075)}}
   @keyframes name-in{from{transform:translateY(40%) scale(.96);opacity:0;clip-path:inset(0 0 100% 0)}to{clip-path:inset(0)}}
 
   .stage{position:relative;width:var(--W);aspect-ratio:1456/1696;margin:calc(var(--W) * -0.04) auto 0;z-index:2;--px:0;--py:0}
